@@ -6,6 +6,4 @@ class helloChase
         System.out.println("hello everyone!");
     
     }
-
-
 }
