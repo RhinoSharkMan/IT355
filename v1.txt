@@ -1,0 +1,36 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+
+/**
+ * Demonstration of rule FIO03-J with proper usage (Delete Temporary Files Before Termination)
+ */
+class TempFileExample {
+
+    public static void main(String[] args) {
+        Path tempFile = null;
+        try {
+            // Create a temporary file
+            tempFile = Files.createTempFile("tempFileExample", ".tmp");
+
+            // Write to the file and ensure DELETE_ON_CLOSE is handled
+            try (BufferedWriter writer = Files.newBufferedWriter(tempFile, 
+                    Charset.forName("UTF8"))) {
+                writer.write("This is a temporary file.");
+            }
+
+            // The file will be deleted when it is closed (outside the try block)
+            System.out.println("Temporary file write done, file erased");
+
+        } catch (FileAlreadyExistsException e) {
+            System.err.println("File already exists: " + tempFile);
+        } catch (IOException e) {
+            // Handle other failures (like permissions)
+            System.err.println("Error creating or handling temporary file: " + e.getMessage());
+        }
+    }
+}

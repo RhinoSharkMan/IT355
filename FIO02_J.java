@@ -1,27 +1,37 @@
 import java.io.File;
-import java.io.IOException;
 
-public class FIO02_J{
+/**
+ * IT 355 - Group Project 1
+ * Demonstration of rule FI002-J with proper usage 
+ */
+class FI002_J
+{
+
+/**
+ * Main method 
+ */
     public static void main(String[] args) {
-        File file = new File("example.txt");
+        exampleMethod();
+    
+    }
+    
 
-        // Attempt to create a new file
-        try {
-            if (file.createNewFile()) {
-                System.out.println("File created successfully: " + file.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.err.println("Error occurred while creating the file: " + e.getMessage());
-        }
-
-        // Attempt to delete the file
-        if (file.delete()) {
-            System.out.println("File deleted successfully.");
-        } else {
-            System.err.println("Failed to delete the file.");
-        }
+/**
+ * Example of FI002-J with proper usage.
+ * 
+ * This method demonstrates the proper handling of the return value from the delete() method.
+ * The method attempts to delete a file checks whether the operation succeeded.
+ * If the deletion fails, an error message is printed to the standard error output.
+ */
+public static void exampleMethod() {
+    File file = new File("example.txt");
+    if (file.delete() == false) {
+        //Deletion of file failed. Handle the error 
+        System.err.println("Failed to delete the file: " + file.getAbsolutePath());
+    } 
+    else {
+        System.out.println("File deleted successfully.");
     }
 }
+} //end class
 
