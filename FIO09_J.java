@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -20,11 +19,17 @@ class FI009_J
     
 
 /**
- * Example of FI000-J with proper usage.
- * ?
+ * Example of FI009-J with proper usage.
+ * 
+ * This method demonstrates the write() method to output an int value within
+ * within the valid byte range  (0-255). The input is validated 
+ * to ensure that it falls within this range, and if not, an exception occurs 
+ * 
+ * @param testValue The integer value to be written, expected to be within 0-255.
+ * @throws ArithmeticException if the value is outside the range of 0-255.
  */
 public static void exampleMethod(int testValue){
-        //perform range checking 
+        //perform range validation
         int value = Integer.valueOf(testValue);
         if (value < 0 || value > 255) {
           throw new ArithmeticException("Value is out of valid range (0-255)");
