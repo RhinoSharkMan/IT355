@@ -14,11 +14,11 @@ class ERR02_J {
         exampleMethod();
     }
 
-    /**
-     * Demonstrates the ERR02-J rule by simulating a logging operation that could 
-     * throw an exception if the log message is null.
-     * Catches and handles any exceptions that occur during the logging process.
-     */
+/**
+ * Demonstrates the ERR02-J rule by simulating a logging operation that could 
+ * throw an exception if the log message is null.
+ * Catches and handles any exceptions that occur during the logging process.
+ */
     public static void exampleMethod() {
         try {
             // Simulate logging operation
@@ -41,13 +41,13 @@ class ERR02_J {
         }
     }
 
-    /**
-     * Simulates logging a message to the system. 
-     * Throws an exception if the input message is null.
-     *
-     * @param message the message to be logged
-     * @throws Exception if the log message is null
-     */
+/**
+ * Simulates logging a message to the system. 
+ * Throws an exception if the input message is null.
+ *
+ * @param message the message to be logged
+ * @throws Exception if the log message is null
+ */
     public static void logData(String message) throws Exception {
         // Simulate a condition that might throw an exception
         if (message == null) {
