@@ -7,7 +7,7 @@ import java.sql.*;
  */
 class IDS00_J {
 
-/**
+    /**
  * Main method 
  */
     public static void main(String[] args) {
@@ -22,22 +22,32 @@ class IDS00_J {
 
     
 /**
- * Example of IDS00-J with proper usage.
- */
+* Example of IDS00-J with proper usage.
+* 
+* This method connects to the database, checks if the provided username is within 
+* the allowed length, hashes the provided password, and verifies if the 
+* combination of username and password exists in the database. 
+
+* @param username the username to be authenticated
+* @param password the password associated with the username, provided as a character array for security
+* @throws SQLException if a database access error occurs or the connection cannot be closed
+* @throws SecurityException if the username exceeds the allowed length or the username/password combination is incorrect
+*/
     public static void exampleMethod(String username, char[] password) throws SQLException {
-        
+        Connection connection = null;
         try {
             connection = getConnection();
             String hashedPassword = hashPassword(password);
             //validate username length
-            if (username.length() > 8) {
+            if (username.length() > 10) {
                 throw new SecurityException("ERROR: Username is incorrect");
             }
             String sqlString = "SELECT * FROM users WHERE username=? AND password=?";
             PreparedStatement stmt = connection.prepareStatement(sqlString);
             /*
-             * the set*() mitigates the SQL injection vulnerability because the input is properly escaped by 
-             * automatic entrapment within double quotes. (REWORD)
+             * Use PrepareedStatement: the set*() mitigates the SQL injection vulnerability because the input is properly escaped by 
+             * the user input. If you manually concatenat user input into an SQL query 
+             * string, you can allow attackers to inject malicious SQL code
              */
             stmt.setString(1, username);
             stmt.setString(2, hashedPassword);
@@ -48,7 +58,6 @@ class IDS00_J {
             }
             //authenticated succesfully
             System.out.println("User authenticated successfully.");
-
         } 
         catch(Exception e)
         {
