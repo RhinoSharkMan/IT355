@@ -1,3 +1,4 @@
+package rules_chase;
 /**
  * IT 355 - Group Project 1
  * Demonstration of rule ERR04-J with proper usage 

@@ -1,4 +1,4 @@
-
+package rules_chase;
 import java.sql.*;
 
 /**
@@ -45,7 +45,7 @@ class IDS00_J {
             String sqlString = "SELECT * FROM users WHERE username=? AND password=?";
             PreparedStatement stmt = connection.prepareStatement(sqlString);
             /*
-             * Use PrepareedStatement: the set*() mitigates the SQL injection vulnerability because the input is properly escaped by 
+             * Use of PrepareedStatement and set*() mitigates the SQL injection vulnerability because the input is properly escaped by 
              * the user input. If you manually concatenat user input into an SQL query 
              * string, you can allow attackers to inject malicious SQL code
              */
@@ -64,7 +64,7 @@ class IDS00_J {
             System.out.println("ERROR: no SQL connection");
         }
         finally {
-            // Ensure resources are closed to avoid potential resource leaks
+            //close resources
             if (connection != null) connection.close();
         }
     }

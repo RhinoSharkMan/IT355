@@ -1,6 +1,8 @@
+package rules_chase;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 /**
  * IT 355 - Group Project 1
@@ -23,8 +25,7 @@ class ERR00_J
  * Example of ERR00-J
  *
  * This method attempts to read a file line by line. If no exception occurs, 
- * it successfully prints the file content. If an IOException occurs during 
- * file reading, it asks the user to input a try a different file 
+ * it successfully prints the file content.
  * 
  */
     public static void exampleMethod(String fileName) {
@@ -37,11 +38,10 @@ class ERR00_J
             }
             reader.close();
         } 
-        catch (IOException e) {
-            /* 
-            proper handling if an exception occurs
-            */
-            System.err.println("FILE ERROR. Please try a new file.");
+        catch (FileNotFoundException e) {
+            System.err.println("ERROR: File not found. Please check the file path.");
+        } catch (IOException e) {
+            System.err.println("FILE ERROR: An error occurred while reading the file.");
         }
     }
 } //end class

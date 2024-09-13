@@ -1,3 +1,4 @@
+package rules_chase;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

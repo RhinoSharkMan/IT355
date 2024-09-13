@@ -1,3 +1,4 @@
+package rules_chase;
 import java.io.*;
 /**
  * IT 355 - Group Project 1
@@ -24,7 +25,6 @@ class FI004_J {
         //using try-with-resources to automatically close resources (stream and reader) when finished
         try (FileInputStream stream = new FileInputStream(fileName);
              BufferedReader bufRead = new BufferedReader(new InputStreamReader(stream))) {
-
             //Read and process the file line by line
             String line;
             while ((line = bufRead.readLine()) != null) {
