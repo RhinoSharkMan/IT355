@@ -22,7 +22,7 @@ public class OBJ13 {
      * 
      * @return A clone of the private elements array.
      */
-    public String[] getelements() {
+    public static final String[] getelements() {
         // Return a defensive copy of the array
         return elements.clone();
     }
