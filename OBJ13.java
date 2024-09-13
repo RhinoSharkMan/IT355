@@ -4,7 +4,7 @@
  */
 public class OBJ13 {
 
-    /** The private elements of the Object */
+    /** The static elements of the Object */
     public static final String[] elements = {"123", "456"};
 
     /**
@@ -18,9 +18,9 @@ public class OBJ13 {
     }
 
     /**
-     * Returns a copy of the private elements array to prevent external modification of internal state.
+     * Returns a copy of the static elements array to prevent external modification of internal state.
      * 
-     * @return A clone of the private elements array.
+     * @return A clone of the static elements array.
      */
     public static final String[] getelements() {
         // Return a defensive copy of the array
