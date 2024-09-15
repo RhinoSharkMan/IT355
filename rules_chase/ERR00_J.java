@@ -26,7 +26,6 @@ class ERR00_J
  *
  * This method attempts to read a file line by line. If no exception occurs, 
  * it successfully prints the file content.
- * 
  */
     public static void exampleMethod(String fileName) {
         try {

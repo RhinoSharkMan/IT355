@@ -31,7 +31,6 @@ class IDS00_J {
 * @param username the username to be authenticated
 * @param password the password associated with the username, provided as a character array for security
 * @throws SQLException if a database access error occurs or the connection cannot be closed
-* @throws SecurityException if the username exceeds the allowed length or the username/password combination is incorrect
 */
     public static void exampleMethod(String username, char[] password) throws SQLException {
         Connection connection = null;
