@@ -1,5 +1,3 @@
-package Recommendations;
-
 public class DCL52 {
     public static void main (String[] args){
         //All variables are declared in seperate lines
