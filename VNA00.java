@@ -21,10 +21,12 @@ public void run()
  Thread.currentThread().interrupt();
 }
 
-//adds two integers together
-//@ param val - integer value used to represent value variable
-//@ param add - integer value used to represent what is being added to value
-//@ return integer value resulting from addition of val and add.   
+/**
+* adds two integers together
+* @param val - integer value used to represent value variable
+* @param add - integer value used to represent what is being added to value
+* @return integer value resulting from addition of val and add.   
+*/  
 public int addition(int val, int add)
 {
    return val + add; 
