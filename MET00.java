@@ -11,10 +11,12 @@ public class MET00 {
     System.out.println(result); 
     }
 
-    //Method adds two integer values, if it recognizes one of the parameters is the maxiumum integer value it will return that value instead
-    //@param val1 integer value to be added
-    //@param val2 second integer value to be added
-    //@return sum of integers val1 and val2 
+    /**
+    *Method adds two integer values, if it recognizes one of the parameters is the maxiumum integer value it will return that value instead
+    * @param val1 integer value to be added
+    * @param val2 second integer value to be added
+    * @return sum of integers val1 and val2 
+    */
     public static int addValues(int val1, int val2)
     {
         if (val1 == Integer.MAX_VALUE || val2 == Integer.MAX_VALUE)
