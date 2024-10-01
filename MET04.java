@@ -2,13 +2,17 @@
 public class MET04 
 {
     boolean boolVal = false; 
-    //By declaring method private and final, prevents subclass from calling or overwriting method so only superclass has access.
-    //@return sets boolVal to true
+    /**  
+    * By declaring method private and final, prevents subclass from calling or overwriting method so only superclass has access.
+    * @return sets boolVal to true
+    */
     private final void setTrue()
     {
         boolVal = true; 
     }
-    //@return returns boolVal
+    /** 
+    * @return returns boolVal
+    */
     protected boolean getBool()
     {
         return boolVal; 
@@ -28,10 +32,12 @@ public class MET04
 
 class Subclass extends MET04
 {
-    //checks value of given boolean, in this case boolVal. Depending on value prints different responses, subclass cannot overwrite 
-    //setTrue method so output is directly dependent on superclass. 
-    //@param boolean value that get checked for its value
-    //@return prints different statements depending on value of boolean. 
+    /** 
+    * checks value of given boolean, in this case boolVal. Depending on value prints different responses, subclass cannot overwrite 
+    * setTrue method so output is directly dependent on superclass. 
+    * @param boolean value that get checked for its value
+    * @return prints different statements depending on value of boolean. 
+    */
     public void checkVal(boolean bool)
     {
         if (bool)
