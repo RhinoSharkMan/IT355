@@ -20,24 +20,30 @@ class NoOverloading
     static int val; 
     static String str; 
 
-    //Initialization method resembling default constructor, prints statement declaring method was used.
-    //@return a new NoOverloading object
+    /** 
+    Initialization method resembling default constructor, prints statement declaring method was used.
+    * @return a new NoOverloading object
+    */
     public static NoOverloading con1() {
         System.out.println("Initialization method 1");
         return new NoOverloading();
     }
-    //Secondary initialization method with a string parameter, prints statement declaring method was called and prints parameter given.
-    //@param   st - string that sets internal variable str and is printed out
-    //@return  a new NoOverloading object
+    /** 
+    * Secondary initialization method with a string parameter, prints statement declaring method was called and prints parameter given.
+    * @param   st - string that sets internal variable str and is printed out
+    * @return  a new NoOverloading object
+    */
     public static NoOverloading con2(String st)
     {
         System.out.println("Initialization method 2: " + st);
         str = st;
         return new NoOverloading(); 
     }
-    //Tertiary initialization method with a int parameter, prints statement declaring method was called and prints parameter given.
-    //@param   value - int that sets internal variable val and is printed out
-    //@return  a new NoOverloading object
+    /** 
+    * Tertiary initialization method with a int parameter, prints statement declaring method was called and prints parameter given.
+    * @param   value - int that sets internal variable val and is printed out
+    * @return  a new NoOverloading object
+    */
     public static NoOverloading con3(int value)
     {
         System.out.println("Initialization method 3: " + value);
