@@ -14,9 +14,11 @@ public class NUM09
         System.out.println(x); 
     }
 
-    //adds 10 to given float val
-    //@param val floating value to be incremented
-    //@return floating value incremented by 10
+   /** 
+    * adds 10 to given float val
+    * @param val floating value to be incremented
+    * @return floating value incremented by 10
+    */
     public static float incrementByTen(float val)
     {
         return val + 10.0f; 
