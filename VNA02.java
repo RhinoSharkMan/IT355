@@ -19,9 +19,10 @@ try {
     e.printStackTrace();
   }
 }
-
-//incrementing using multithreading
-//prints value of testVal once thread exists for loop
+/** 
+* incrementing using multithreading
+* prints value of testVal once thread exists for loop
+*/
 public void run()
 {
     for (int i = 0; i < 100; i++)
@@ -30,11 +31,12 @@ public void run()
     }
       System.out.println(testVal); 
 }
-
-//increments argument using prefix operator value and returns 
-//synchronized to avoid issues with multithreading doing compound operation at same time
-//@param val - integer value to be incremented
-//@return incremented val 
+/**
+* increments argument using prefix operator value and returns 
+* synchronized to avoid issues with multithreading doing compound operation at same time
+* @param val - integer value to be incremented
+* @return incremented val 
+*/
 public static synchronized int increment(int val)
 {
     return ++val;
