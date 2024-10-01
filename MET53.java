@@ -17,8 +17,10 @@ public class MET53 implements Cloneable
     {
         val = x;
     }
-    //Prints value of val
-    //@return  print statement showing values of object's val variable
+   /** 
+    * Prints value of val
+    * @return  print statement showing values of object's val variable
+    */
     public void getVal()
     {
         System.out.println(val); 
