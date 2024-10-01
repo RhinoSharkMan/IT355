@@ -12,10 +12,12 @@ public static void main(String[] args) {
     System.out.println(result2);
 }    
 
-//divides first argument by second, printing statement if divisor = 0
-//@param dividend int value to be divided 
-//@param divisor  int value dividing
-//@return integer result from dividend/divisor, returns 0 if divisor = 0
+/** 
+* divides first argument by second, printing statement if divisor = 0
+* @param dividend int value to be divided 
+* @param divisor  int value dividing
+* @return integer result from dividend/divisor, returns 0 if divisor = 0
+*/
 public static int division(int dividend, int divisor)
 {
     if (divisor == 0)
