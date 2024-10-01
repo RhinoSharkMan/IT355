@@ -16,7 +16,7 @@ class ERR04_J
     
 
 /**
- * Example of ERR04-J - not abrubtly returning within the finally block
+ * Example of ERR04-J - not abruptly return within the finally block
  *
  * This method executes and returns 0 if no exception occurs. If an exception occurs,
  * it catches it and returns 1. Regardless of what happens, it will execute
