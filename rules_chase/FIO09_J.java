@@ -3,7 +3,8 @@ import java.io.IOException;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule FI009-J with proper usage 
+ * Demonstration of rule FI009-J - Do Not Rely on the write() Method to Output Integers Outside 
+ * The Range of 0 to 255  
  */
 class FI009_J
 {

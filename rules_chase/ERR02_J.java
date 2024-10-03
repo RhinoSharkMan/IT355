@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule ERR02-J with proper usage 
+ * Demonstration of rule ERR02 - Prevent Exceptions While Logging Data 
  */
 class ERR02_J {
     private static final Logger logger = Logger.getLogger(ERR02_J.class.getName());

@@ -3,7 +3,7 @@ import java.sql.*;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule IDS00-J with proper usage 
+ * Demonstration of rule IDS00-J - Prevent SQL Injection
  */
 class IDS00_J {
 

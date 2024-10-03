@@ -2,7 +2,7 @@ package rules_chase;
 import java.io.*;
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule FIO04-J with try-with-resources
+ * Demonstration of rule FIO04-J - Release Resources When They are no Longer Needed
  */
 
 class FI004_J {

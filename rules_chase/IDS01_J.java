@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule IDS01-J
+ * Demonstration of rule IDS01-J - Normalize Strings Before Validating Them
  */
 
 class IDS01_J {

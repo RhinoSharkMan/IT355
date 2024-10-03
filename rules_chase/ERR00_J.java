@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule ERR00-J with proper usage 
+ * Demonstration of rule ERR00-J - Do Not Suppress or Ignore Checked Exceptions
  */
 class ERR00_J
 {
@@ -24,8 +24,8 @@ class ERR00_J
 /**
  * Example of ERR00-J
  *
- * This method attempts to read a file line by line. If no exception occurs, 
- * it successfully prints the file content.
+ * This method attempts to read a file line by line. If an exception occurs,
+ * it is not ignorned and the user is informed
  */
     public static void exampleMethod(String fileName) {
         try {

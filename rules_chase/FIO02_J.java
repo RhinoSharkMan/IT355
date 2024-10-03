@@ -3,7 +3,7 @@ import java.io.File;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule FI002-J with proper usage 
+ * Demonstration of rule FI002-J - Detect and Handle File-Related Errors 
  */
 class FI002_J
 {

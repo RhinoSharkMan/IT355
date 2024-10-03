@@ -1,7 +1,7 @@
 package rules_chase;
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule ERR04-J with proper usage 
+ * Demonstration of rule ERR04-J - not abruptly return within the finally block
  */
 class ERR04_J
 {
@@ -11,7 +11,6 @@ class ERR04_J
  */
     public static void main(String[] args) {
         exampleMethod();
-    
     }
     
 

@@ -10,7 +10,7 @@ import java.nio.file.StandardOpenOption;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule FIO50-J with proper usage 
+ * Demonstration of rule FIO50-J - Do Not Make Assumptions About File Creation
  */
 class FIO50_J
 {

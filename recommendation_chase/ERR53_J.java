@@ -2,7 +2,7 @@ package recommendation_chase;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule ERR53-J with proper usage 
+ * Demonstration of rule ERR53-J - Try to Gracefully Recover From System Errors
  */
 class ERR53_J
 {

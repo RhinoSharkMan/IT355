@@ -8,7 +8,7 @@ import java.nio.file.StandardOpenOption;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule FIO03-J with proper usage (Delete Temporary Files Before Termination)
+ * Demonstration of rule FIO03-J - Remove Temporary Files Before Termination 
  */
 class FIO03_J {
 

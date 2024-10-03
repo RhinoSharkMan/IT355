@@ -5,7 +5,7 @@ import javax.script.ScriptException;
 
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule IDS52-J with proper usage 
+ * Demonstration of rule IDS52-J - Prevent Code Injection
  */
 
 class IDS52_J {
