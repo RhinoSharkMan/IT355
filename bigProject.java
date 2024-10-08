@@ -20,6 +20,34 @@ import java.security.PrivilegedAction;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.util.Scanner;
+import java.util.*;
+import java.io.*;
+
+class Medication {
+    // marked private so that internal state of medList is only modified as intended - OBJ01-J
+    private String[] medList;
+
+    public Medication(String[] medList){
+        this.medList = medList;
+    }
+
+    public void displayMeds(){
+
+    }
+    /**
+     * 
+     * @return clone of medList
+     */
+    public String[] getMedList(){
+        //returns a defensive clone of medList OBJ05-J
+        return medList.clone();
+    }
+    public boolean compareMeds(String[] medList1, String[] medList2){
+        if(Arrays.equals(medList1, medList2))//correct way to compare arrays EXP02-J
+            return true;
+        return false;
+    }
+}
 
 
 public class bigProject {
