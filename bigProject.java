@@ -6,6 +6,7 @@
 
 import java.util.Scanner;
 
+
 public class bigProject {
 
 /**
@@ -20,7 +21,7 @@ public class bigProject {
             System.out.println("OPTION 1: x");
             System.out.println("OPTION 2: x");
             System.out.println("OPTION 100: x");
-            System.out.print("\nEnter your choice (-1 to exit):");
+            System.out.print("\nEnter your choice (-1 to exit): ");
 
             // Read user input
             control = scanner.nextInt(); // Get user input
