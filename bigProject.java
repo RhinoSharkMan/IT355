@@ -19,7 +19,6 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
-import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 
@@ -67,7 +66,8 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
         int control = 0;
         System.out.println("WELCOME TO X DIRECTORY\n");
         while (control != -1) {
-            //Display options
+            control = 0;
+            //Display options 
             System.out.println("OPTION 1: x");
             System.out.println("OPTION 2: x");
             System.out.println("OPTION 20: Change a File");
@@ -141,7 +141,6 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
                 case 100:
                     // Add logic for option 100
                     System.out.println("You selected OPTION 100.");
-                    break;
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
@@ -152,15 +151,26 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
 /*
  * ALL OTHER METHODS
  */
+
+    /**
+    * Validates the that the input from main is an int
+    * @param input the initial integer value to validate.
+    * @param scanner the Scanner object used to read user input.
+    * @return the validated integer value from the user input.
+    */
     public static int validateInput(int input, Scanner scanner)
     {
-        try {
-            input = scanner.nextInt(); // Get user input
-            return input;
-        } catch (Exception x) {
-            return 0;
-        }
+        if (scanner.hasNextInt() == true) {
+            input = scanner.nextInt();
+            } 
+        else {
+            scanner.next(); //clear the invalid input
+            }
+        return input;
     }
+
+
+
 
     //FOI05
     //Arrays get put into charbuffered copys 
