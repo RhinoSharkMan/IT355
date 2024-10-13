@@ -6,4 +6,5 @@ public class SER05 implements Serializable{
     class InnerClass{
         protected String example;
     }
+//Serializes the outer class instead of the inner class
 }

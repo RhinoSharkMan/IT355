@@ -4,6 +4,8 @@
  */
 
 
+import java.awt.SystemTray;
+import java.awt.im.InputContext;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +23,7 @@ import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.util.*;
 import java.io.*;
+import java.lang.classfile.instruction.ThrowInstruction;
 
 //CLASS: Medication
 class Medication {
@@ -50,7 +53,6 @@ class Medication {
 }//END: medication
 
 
-
 //CLASS: Medication
 public class bigProject {
 
@@ -58,11 +60,27 @@ public class bigProject {
 static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
 
 
+//CLASS: patientFile
+static class patientFiles implements Serializable{
+    //marked transiant to prevent others from manipulating the file's path
+    transient File patientFile;
+    //created an innerclass with acordance to SER05
+    class files{
+     public void patientfiles(File protectedFile) throws FileNotFoundException{
+        //File is not serialized with rest class 
+        //File is not exposed to attackes
+        patientFile = new File("/this PC/local Disk (C:)/patient.txt");
+        }
+    }
+}//END: patientFile
+
+
 /**
  * Main method 
  */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException, IOException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in); 
+        String path;
         int control = 0;
         System.out.println("WELCOME TO X DIRECTORY\n");
         while (control != -1) {
@@ -70,12 +88,12 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
             //Display options 
             System.out.println("OPTION 1: x");
             System.out.println("OPTION 2: x");
-            System.out.println("OPTION 20: Change a File");
+            System.out.println("OPTION 20: Get Char array form a File");
             System.out.println("OPTION 21: Read a file");
             System.out.println("OPTION 22: Verify a file path");
             System.out.println("OPTION 23: Get Information");
-            System.out.println("OPTION 24: x");
-            System.out.println("OPTION 25: x");
+            System.out.println("OPTION 24: Create a Class");
+            System.out.println("OPTION 25: Lock patient files");
             System.out.println("OPTION 26: x");
             System.out.println("OPTION 27: x");
             System.out.println("OPTION 28: x");
@@ -100,15 +118,38 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
                     break;
                 case 20:
                     // Add logic for option 20
-                    System.out.println("You selected OPTION 20: Change a File.");
+                    System.out.println("You selected OPTION 20: Get Char array from a File.");
+                    System.out.println("Enter a path to a file");
+                    path = scanner.nextLine();
+                    System.out.println("Opening the file path");
+                    try {
+                        FileInputStream fileinput = new FileInputStream(path);
+                        char infoData = (char) fileinput.read();
+                        //reads the fileInputStream puts the information into a char and returns the char in a char buffer
+                        getRefereneCharBuffer(makeCharbuffer(fileinput, infoData));
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File not found: " + e.getMessage());
+                    } catch(IOException e) {
+                        System.out.println("Erro reading file: " + e.getMessage());
+                    }
+
                     break;
                 case 21:
                     // Add logic for option 21
-                    System.out.println("You selected OPTION 21: Read a File.");
+                    System.out.println("You selected OPTION 21: Open a File.");
+                    System.out.println("Enter a path to a file");
+                    path = scanner.nextLine();
+                    System.out.println("Opening the file path");
+                    testTxt(path);
+                    OpenTxtFile(path);
                     break;
                 case 22:
                     // Add logic for option 22
-                    System.out.println("You selected OPTION 22: Verify a file Path.");
+                    System.out.println("You selected OPTION 22: Clean a file Path.");
+                    System.out.println("Enter a path to a file");
+                    path = scanner.nextLine();
+                    System.out.println("Cleaning the file's path");
+                    sanatizePath(path);
                     break;
                 case 23:
                     // Add logic for option 23
@@ -116,19 +157,54 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
                     break;
                 case 24:
                     // Add logic for option 24
-                    System.out.println("You selected OPTION 24.");
+                    System.out.println("You selected OPTION 24: Create a Class");
+                    Class<bigProject> trustedClass = null;
+                    create(trustedClass);
+                    System.out.println("You created a new trusted class.");
                     break;
                 case 25:
                     // Add logic for option 25
-                    System.out.println("You selected OPTION 25.");
+                    System.out.println("You selected OPTION 25: lock patient files.");
+                    patientfileLock();
+                    System.out.println("You have locked patient files");
                     break;
                 case 26:
                     // Add logic for option 26
-                    System.out.println("You selected OPTION 26.");
+                    System.out.println("You selected OPTION 26: read a file.");
+                    System.out.println("Enter a path to a file");
+                    path = scanner.nextLine();
+                    //changes a file input stream into an object input stream
+                     try (FileInputStream fileInputStream = new FileInputStream(path);
+                    ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream))
+                    {
+                       getRead(objInputStream);
+                       //It lets you read the file hopefully
+                    } catch (FileNotFoundException e){
+                        //catches file not found exception
+                        System.err.println("File Not found: " + e.getMessage());
+                    } catch (IOException e) {
+                        //catches IOE exception
+                        System.err.println("I/O error: " + e.getMessage());
+                    }
                     break;
                 case 27:
                     // Add logic for option 27
-                    System.out.println("You selected OPTION 27.");
+                    System.out.println("You selected OPTION 27: write on a file.");
+                    System.out.println("Enter a path to a file");
+                    path = scanner.nextLine();
+                    //changes a file output stream into an object output stream
+                    try (FileOutputStream fileOutputStream = new FileOutputStream(path);
+                    ObjectOutputStream objOutputStream = new ObjectOutputStream(fileOutputStream))
+                    {
+                       getWrite(objOutputStream);
+                       //lets it so you can write on the file hopefully
+                    } catch (FileNotFoundException e){
+                        //catches file not found exception
+                        System.err.println("File Not found: " + e.getMessage());
+                    } catch (IOException e) {
+                           //catches IOE exception
+                        System.err.println("I/O error: " + e.getMessage());
+                    }
                     break;
                 case 28:
                     // Add logic for option 28
@@ -170,7 +246,11 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
     }
 
 
-
+    //References getCharBufferedCopy
+    public static CharBuffer getRefereneCharBuffer(char importantArray[]) {
+        bigProject getReferenceChar = new bigProject();
+        return getReferenceChar.getCharBufferedCopy(importantArray);
+    }
 
     //FOI05
     //Arrays get put into charbuffered copys 
@@ -181,65 +261,66 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
 
     //FIO08 
     //Properly read char from something
-    public static void makeCharbuffer(FileInputStream in, char infromationData) {
+    public static char[]  makeCharbuffer(FileInputStream in, char informationData) {
          // Initialize Stream
          int intBuffer;
+         char charArray[] = new char[1000000];
          try {
             while ((intBuffer = in.read()) != -1) {
-            infromationData = (char) intBuffer;
+           char infromationData = (char) intBuffer;
             //saftly puts the information into data type char
+            charArray[intBuffer] = informationData;
         }
         }   catch (IOException e) {
             // catches the IOException
             }
+            return charArray;
         }
 
+    //call functions for the write of an object
+    private static void getWrite(final ObjectOutputStream writeOBJ) 
+    throws IOException {
+        bigProject writeObj = new bigProject();
+        writeObj.writeObjectexp(writeOBJ); 
+    }
 
-    //FOI14 Puts buffers around a file
-    public static void getFileBuffer(String[] args) 
-        throws FileNotFoundException, IOException, Exception {
-            final PrintStream output = 
-            new PrintStream(new BufferedOutputStream(
-                new FileOutputStream("example.txt")));
-            try {
-                output.println("FOI14 example text");
-            } 
-            finally {
-                try {
-                    readObjectexp(null);
-                    output.close(); 
-                }
-                catch (IOException x) {
-                    //handles error
-                }    
-            }           
-            Runtime.getRuntime().exit(1);
-        }
-
-
+    //call functions for the read of an object
+    private static void getRead(final ObjectInputStream readOBJ) 
+    throws IOException, ClassNotFoundException {
+        bigProject readObj = new bigProject();
+        readObj.readObjectexp(readOBJ); 
+    }
+    
     //SER01 for write and read
-    //Allows saftly writing into an object or file
-    private static void writeObjectexp(final ObjectOutputStream writeExample)
+    //Allows saftly writing into an object
+    private void writeObjectexp(final ObjectOutputStream writeExample)
     throws IOException {
         writeExample.defaultWriteObject();
     }
-    //Allow saftly reading into and objector file
-    private static void readObjectexp(final ObjectInputStream readExample)
+    //Allow saftly reading into and object
+    private void readObjectexp(final ObjectInputStream readExample)
     throws IOException, ClassNotFoundException {
         readExample.defaultReadObject();
     }
 
 
     //SEC01 Sanatizes the path to a file
-    private void privilegedExample() throws FileNotFoundException, IOException {
+    private static void sanatizePath(final String path) throws FileNotFoundException, IOException {
         //Proper way to sanatize a path file
+         final String cleanFileName;
+         String cleanedFiles[] = null;
+         int cleanedFileCount = 0;
+            cleanFileName = path;
+            cleanedFileCount = cleanedFileCount+1;
+            cleanedFiles[cleanedFileCount] = path;
+        
         try {
             FileInputStream editFile =
                 (FileInputStream) AccessController.doPrivileged(
                     new PrivilegedExceptionAction() {
                         @Override
                         public FileInputStream run() throws FileNotFoundException{
-                         return new FileInputStream(filePath);
+                         return new FileInputStream(cleanFileName);
                         }
                     }   
                 );
@@ -248,21 +329,24 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
         } catch (PrivilegedActionException exception) {
             //forward to a log file
         }
+        Runtime.getRuntime().exit(1);
+        //this makes it complient to FOI14
     }
 
 
      //SEC00
-    public static void changeTxt() throws FileNotFoundException {
-        FileInputStream exp = OpenTxtFile();
+    public static void testTxt(String path) throws FileNotFoundException {
+        FileInputStream exp = OpenTxtFile(path);
         if (exp == null)
         {
             //makes sure to throw out file not found exception
         }
+       
     //test to see if there is text in file
     }
     //SEC00 p2
-    private static FileInputStream OpenTxtFile() {
-        final String txt_file = "example";
+    private static FileInputStream OpenTxtFile(String path) {
+        final String txt_file = path;
         final FileInputStream exp[] = { null };
         AccessController.doPrivileged(new PrivilegedAction<Void>() {
             public Void run() {
@@ -278,6 +362,17 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
         return exp[0];
     }
 
+    //Puts a lock on the patient file
+    public static void patientfileLock() throws IOException, ClassNotFoundException{
+        patientFiles myObj = new patientFiles();
+        lockrefernce((ObjectInput) myObj);
+    }
+
+    //allows the communication of lockObject
+    public static void lockrefernce(ObjectInput in) throws IOException, ClassNotFoundException {
+        bigProject lockObj = new bigProject();
+        lockObj.lockObject(in);
+    }
 
     //Creates a 'lock' to sencronize classes that may have untrusted code
     private final Object lock = new Object();
@@ -299,12 +394,15 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
             }else {
                 throw new IllegalStateException();
              }
-        }    
+        }
+        Runtime.getRuntime().exit(1);
+        //makes code complient to FOI14    
     }
 
     //SEC05
     //Create a trusted class
-    static <Sec> Sec create(Class<Sec> trustedClass)
+    public bigProject() {}
+   public static <Sec> Sec create(Class<Sec> trustedClass)
            throws InstantiationException, IllegalAccessException {
                //Creates a trusted class
                return trustedClass.newInstance();
@@ -312,26 +410,3 @@ static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //cha
 
 
 } //END bigProject
-    
-
-
-    /*Change a class to make it serializable 
-     * //SER05
-     * public class SER05 implements Serializable{
-     *        private int intExp;
-     *     class InnerClass{
-     *    protected String example;
-     *     }
-     *    //Serializes the outer class instead of the inner class
-     *   }
-     * 
-     */
-    
-     /*Trusted Class (SEC05)
-      *public class SEC05() { }//Package -private constructor
-      *static <Sec> Sec create(Class<Sec> trustedClass)
-      *     Throws InstantiationException, IllegalAccessEception{
-      *         //Creates a trusted class
-      *         return trustedClass.newInstance();
-      *     }
-      */
