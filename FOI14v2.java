@@ -12,11 +12,9 @@ public class FOI14v2 {
             final PrintStream output = 
             new PrintStream(new BufferedOutputStream(
                 new FileOutputStream("example.txt")));
-            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run(){
-                output.close();
-            } 
-        }));
+                //creates a file
+            Runtime.getRuntime().addShutdownHook(new Thread(output::close));
+        //Correctly closes said file to avoid errors
         output.println("FOI14v2 example");
         Runtime.getRuntime().exit(1);
         }
