@@ -89,15 +89,12 @@ static class patientFiles implements Serializable{
             System.out.println("OPTION 1: x");
             System.out.println("OPTION 2: x");
             System.out.println("OPTION 20: Get Char array form a File");
-            System.out.println("OPTION 21: Read a file");
+            System.out.println("OPTION 21: open a file path");
             System.out.println("OPTION 22: Verify a file path");
-            System.out.println("OPTION 23: Get Information");
-            System.out.println("OPTION 24: Create a Class");
-            System.out.println("OPTION 25: Lock patient files");
-            System.out.println("OPTION 26: x");
-            System.out.println("OPTION 27: x");
-            System.out.println("OPTION 28: x");
-            System.out.println("OPTION 29: x");
+            System.out.println("OPTION 23: Create a Class");
+            System.out.println("OPTION 24: Lock patient files");
+            System.out.println("OPTION 26: read a file");
+            System.out.println("OPTION 27: write on a file");
             System.out.println("OPTION 100: x");
             System.out.print("\nEnter your choice (-1 to exit): ");
 
@@ -128,49 +125,60 @@ static class patientFiles implements Serializable{
                         //reads the fileInputStream puts the information into a char and returns the char in a char buffer
                         getRefereneCharBuffer(makeCharbuffer(fileinput, infoData));
                     } catch (FileNotFoundException e) {
+                        //catches file not found exception
                         System.out.println("File not found: " + e.getMessage());
                     } catch(IOException e) {
+                        //catches IO exception
                         System.out.println("Erro reading file: " + e.getMessage());
                     }
 
                     break;
                 case 21:
                     // Add logic for option 21
-                    System.out.println("You selected OPTION 21: Open a File.");
+                    System.out.println("You selected OPTION 21: Open a file path.");
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
                     System.out.println("Opening the file path");
-                    testTxt(path);
-                    OpenTxtFile(path);
+                    try {
+                       testTxt(path);
+                    OpenTxtFile(path); 
+                    } catch (FileNotFoundException e) {
+                        //catches file not found exception
+                        System.out.println("File Not Found: " + e.getMessage());
+                    }
+                    
                     break;
                 case 22:
                     // Add logic for option 22
                     System.out.println("You selected OPTION 22: Clean a file Path.");
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
-                    System.out.println("Cleaning the file's path");
-                    sanatizePath(path);
+                    try {
+                     System.out.println("Cleaning the file's path");
+                    sanatizePath(path);   
+                    } catch (FileNotFoundException e) {
+                        //catches file not found exception
+                        System.out.println("File Not Found: " + e.getMessage());
+                    }
+                    
                     break;
                 case 23:
                     // Add logic for option 23
-                    System.out.println("You selected OPTION 23: Get Information.");
-                    break;
-                case 24:
-                    // Add logic for option 24
-                    System.out.println("You selected OPTION 24: Create a Class");
+                    System.out.println("You selected OPTION 23: Create a Class");
+                    //creates a trusted class
                     Class<bigProject> trustedClass = null;
                     create(trustedClass);
                     System.out.println("You created a new trusted class.");
                     break;
-                case 25:
-                    // Add logic for option 25
-                    System.out.println("You selected OPTION 25: lock patient files.");
+                case 24:
+                    // Add logic for option 24
+                    System.out.println("You selected OPTION 24: lock patient files.");
                     patientfileLock();
                     System.out.println("You have locked patient files");
                     break;
-                case 26:
-                    // Add logic for option 26
-                    System.out.println("You selected OPTION 26: read a file.");
+                case 25:
+                    // Add logic for option 25
+                    System.out.println("You selected OPTION 25: read a file.");
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
                     //changes a file input stream into an object input stream
@@ -187,9 +195,9 @@ static class patientFiles implements Serializable{
                         System.err.println("I/O error: " + e.getMessage());
                     }
                     break;
-                case 27:
-                    // Add logic for option 27
-                    System.out.println("You selected OPTION 27: write on a file.");
+                case 26:
+                    // Add logic for option 26
+                    System.out.println("You selected OPTION 26: write on a file.");
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
                     //changes a file output stream into an object output stream
@@ -205,14 +213,6 @@ static class patientFiles implements Serializable{
                            //catches IOE exception
                         System.err.println("I/O error: " + e.getMessage());
                     }
-                    break;
-                case 28:
-                    // Add logic for option 28
-                    System.out.println("You selected OPTION 28.");
-                    break;
-                case 29:
-                    // Add logic for option 29
-                    System.out.println("You selected OPTION 29.");
                     break;
                 case 100:
                     // Add logic for option 100
