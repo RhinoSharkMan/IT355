@@ -2,7 +2,7 @@ package recommendation_chase;
 import java.util.Scanner;
 /**
  * IT 355 - Group Project 1
- * Demonstration of rule ERR50-J with proper usage 
+ * Demonstration of rule ERR50-J - Use Exceptions Only for Exceptional Conditions
  */
 public class ERR50_J {
 /**
@@ -32,4 +32,4 @@ public class ERR50_J {
             scan.close(); 
         }
     }
-} // end classA
+} // end class
