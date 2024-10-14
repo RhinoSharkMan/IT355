@@ -234,6 +234,187 @@ static class patientFiles implements Serializable{
         return input;
     }
 
+<<<<<<< Updated upstream
+=======
+    /**
+    * Validates that a given file path is resides within the allowed hospital directory
+    * @param filePath The file path to validate.
+    * @param scanner the Scanner object used to read user input.
+    * @return true if valid, false if invalid
+    */
+    public static boolean isValidHospitalFile(String filePath, Scanner scanner) {
+        boolean flag = false;
+        try {
+            // Define the allowed base directory for hospital files
+            File baseDir = new File("/hospital/data");
+            File fileName = new File(filePath);
+            //Canonicalize the file path
+            String canonicalPath = fileName.getCanonicalPath();
+            String baseCanonicalPath = baseDir.getCanonicalPath();
+            // Validate that the canonical path starts with the base directory path
+            if (canonicalPath.startsWith(baseCanonicalPath)) {
+                System.out.println("Valid hospital file path");
+                flag = true;
+            } else {
+                System.out.println("Invalid hospital file path.");
+                flag = true;
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        returnToMain(scanner);
+        return flag;
+    }
+
+    /**
+    * determines if the hospital can order pizza
+    * @param scanner the Scanner object used to read user input.
+    * @param list the list of employees
+    */
+    public static boolean orderPizza(Scanner scanner, ArrayList<HospitalEmployee> list){
+        boolean flag = false;
+        try {
+            if(list.size()/list.size() == 1)
+            {
+                flag = true;
+            }
+            else
+            {
+                flag = false;
+            }
+        } 
+        catch (Exception e) {
+            System.out.println("List is Empty");
+        } 
+        finally {
+            System.out.println("Calculation Over.");
+            if(flag == true)
+            {
+                System.out.println("\tPizza Time!");
+            }
+            else{
+                System.out.println("\tNo Pizza!");
+            }
+            returnToMain(scanner);
+        }
+        return flag;
+    }
+    
+    /**
+    * deletes a text file 
+    * @param scanner the Scanner object used to read user input.
+    */
+    public static void deleteTrash(Scanner scanner){
+        File file = new File("Trash");
+        if (file.delete() == false) {
+            //Deletion of file failed. Handle the error 
+            System.err.println("Failed to remove trash (ew): " + file.getAbsolutePath());
+            returnToMain(scanner);
+        } 
+        else {
+            System.out.println("Trash has been removed :)");
+            returnToMain(scanner);
+        }
+    }
+
+    /**
+    * deletes a text file 
+    * @param scanner the Scanner object used to read user input.
+     * @throws IOException 
+    */
+    public static void leakPrivateData(Scanner scanner, ArrayList<HospitalEmployee> list) throws IOException {
+        System.out.print("Enter the filename to save the employee data: ");
+        String filename = scanner.nextLine(); // Get the file name from the user
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        try{
+            writer.write("Employee Data:\n");
+            for (HospitalEmployee employee : list) {
+                writer.write(employee.toString());
+                writer.newLine();
+            System.out.println("Data has been successfully written to " + filename);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage()); //ERR53-J - Try to Gracefully Recover From System Errors
+        } 
+        finally
+        {
+            writer.close(); //MAKE SURE RESOURCES ARE CLOSED
+            returnToMain(scanner);
+        }
+    }
+
+    /**
+    * displays when a user wants to request a vistiation 
+    * @param scanner the Scanner object used to read user input.
+    */
+    public static void requstVisit(Scanner scanner){
+        System.out.println("You selected OPTION 81.");
+        System.out.print("Please enter patient's room number to request visitation: "); 
+        int roomNum = 0;
+       //checks if user input is valid
+        roomNum = validateInput(roomNum, scanner);
+       //if checks if room number is in valid hospital range (101-5099)
+        if (checkRoomNumber(roomNum))
+        {
+            System.out.println("Valid room number entered, request has been created"); 
+        }
+        else
+        {
+            System.out.println("Room number incorrect, please contact patient's medical staff to find correct room"); 
+        }
+        //return
+        returnToMain(scanner);
+    }
+
+    /*
+    * Utilizing MET00-J by validating the method's arguments. 
+    * Also satisfies MET01-J by not using assertions to validate the argument. 
+    * Hospital has 50 floors, room number has to 101 - 5099
+    * @param room integer describing hospital's room number
+    * @return true if room is in correct range, false otherwise. 
+    */
+    public static boolean checkRoomNumber(int room)
+        {
+            //validating arguments
+            if (room >= 101 && room <= 5099)
+            {
+                return true; 
+            }
+    
+            else
+            {
+            return false; 
+            }
+        }
+
+
+    private static double checkAvgPatients(HospitalEmployee emp, int totalPatientNum)
+    {
+        int hospitalDoctors = emp.getNumDoctors(); 
+
+        //Satisfies MET01-J, validating method arguments without using assertions
+        if (emp.getSecurityLevel() == 0)
+        {
+            System.out.println("Employee entered is not valid"); 
+            return -1;
+        }
+        //Satisfies MET01-J, validating method arguments without using assertions
+        if (!(totalPatientNum > 0))
+        {
+            System.out.println("Invalid number of patients entered"); 
+            return -1;
+        }
+        //Satisfies NUM02-J, ensuring that resulting division does not result in divide by zero error. 
+        if (hospitalDoctors == 0)
+        {
+            System.out.println("No doctors currently stored");
+            System.out.println("Cannot compute to avoid dividing by zero");
+            return -1; 
+        }
+
+        return totalPatientNum / hospitalDoctors; 
+    }
+>>>>>>> Stashed changes
 
     //References getCharBufferedCopy
     public static CharBuffer getRefereneCharBuffer(char importantArray[]) {
