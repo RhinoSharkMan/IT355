@@ -236,10 +236,12 @@ class HospitalJanitor extends HospitalEmployee
        System.out.println("Assigned floors " + lowestFloorNum + " to " + highestFloorNum);
    }
 }
-//CLASS: Medication
+
+
+//CLASS: bigProject
 public class bigProject {
 
-//Medication Variables
+//bigProject Variables
 static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
 private static final Logger logger = Logger.getLogger(bigProject.class.getName());
 private static final boolean IS_TEST_ENVIRONMENT = false; // Set to true in a test environment
@@ -275,32 +277,29 @@ static class patientFiles implements Serializable{
         employeeList.add(x);
         String path;
         int control = 0;
-
         if (IS_TEST_ENVIRONMENT) {
             System.out.println("This is a test method.");
             control = -1;
         }
-        
-        System.out.println("WELCOME TO X DIRECTORY\n");
         System.out.println("WELCOME TO HOSPITAL DIRECTORY\n");
         while (control != -1) {
             control = 0;
             //Display options
-            System.out.println("OPTION 1: x");
-            System.out.println("OPTION 2: x");
-            System.out.println("OPTION 20: Get Char array form a File");
-            System.out.println("OPTION 21: Open a File path");
-            System.out.println("OPTION 22: Verify a file path");
-            System.out.println("OPTION 23: Create a Class");
-            System.out.println("OPTION 24: Lock Patient Files");
-            System.out.println("OPTION 26: Read a File");
-            System.out.println("OPTION 27: Write on a File");
-            System.out.println("OPTION 81: Request Visitation");
-            System.out.println("OPTION 82: Register New Employee");
-            System.out.println("OPTION 83: Get Average Patients per Doctor");
-            System.out.println("OPTION 84: Order Pizza");
-            System.out.println("OPTION 85: Delete Trash");
-            System.out.println("OPTION 86: Employee Data to A File");
+            System.out.println("OPTION 01: Print Current Employees");
+            System.out.println("OPTION 02: Get Char array form a File");
+            System.out.println("OPTION 03: Open a File path");
+            System.out.println("OPTION 04: Verify a file path");
+            System.out.println("OPTION 05: Create a Class");
+            System.out.println("OPTION 06: Lock Patient Files");
+            System.out.println("OPTION 07: Read a File");
+            System.out.println("OPTION 08: Write on a File");
+            System.out.println("OPTION 09: Create a File");
+            System.out.println("OPTION 10: Request Visitation");
+            System.out.println("OPTION 11: Register New Employee");
+            System.out.println("OPTION 12: Get Average Patients per Doctor");
+            System.out.println("OPTION 13: Search For Employee");
+            System.out.println("OPTION 14: Delete Trash");
+            System.out.println("OPTION 15: Employee Data to A File");
             System.out.println("OPTION 100: x");
             System.out.print("\nEnter your choice (-1 to exit): ");
             //Read user input
@@ -309,18 +308,11 @@ static class patientFiles implements Serializable{
             switch (control) {
                 case -1:
                     System.out.println("\nThank you...exiting");
-                    break; // Exit the loop
+                    break; //exit the loop
                 case 1:
-                    // Add logic for option 1
-                    System.out.println("You selected OPTION 1.");
+                    option1(scanner, employeeList);
                     break;
                 case 2:
-                    // Add logic for option 2
-                    System.out.println("You selected OPTION 2.");
-                    break;
-                case 20:
-                    // Add logic for option 20
-                    System.out.println("You selected OPTION 20: Get Char array from a File.");
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
                     System.out.println("Opening the file path");
@@ -339,9 +331,7 @@ static class patientFiles implements Serializable{
 
 
                     break;
-                case 21:
-                    // Add logic for option 21
-                    System.out.println("You selected OPTION 21: Open a file path.");
+                case 3:
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
                     System.out.println("Opening the file path");
@@ -354,9 +344,8 @@ static class patientFiles implements Serializable{
                     }
                    
                     break;
-                case 22:
-                    // Add logic for option 22
-                    System.out.println("You selected OPTION 22: Clean a file Path.");
+                case 4:
+                    System.out.println("You selected OPTION 4: Clean a file Path.");
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
                     try {
@@ -368,23 +357,20 @@ static class patientFiles implements Serializable{
                     }
                    
                     break;
-                case 23:
-                    // Add logic for option 23
-                    System.out.println("You selected OPTION 23: Create a Class");
+                case 5:
+                    System.out.println("You selected OPTION 5: Create a Class");
                     //creates a trusted class
                     Class<bigProject> trustedClass = null;
                     create(trustedClass);
                     System.out.println("You created a new trusted class.");
                     break;
-                case 24:
-                    // Add logic for option 24
-                    System.out.println("You selected OPTION 24: lock patient files.");
+                case 6:
+                    System.out.println("You selected OPTION 6: lock patient files.");
                     patientfileLock();
                     System.out.println("You have locked patient files");
                     break;
-                case 25:
-                    // Add logic for option 25
-                    System.out.println("You selected OPTION 25: read a file.");
+                case 7:
+                    System.out.println("You selected OPTION 7: read a file.");
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
                     //changes a file input stream into an object input stream
@@ -401,9 +387,9 @@ static class patientFiles implements Serializable{
                         System.err.println("I/O error: " + e.getMessage());
                     }
                     break;
-                case 26:
+                case 8:
                     // Add logic for option 26
-                    System.out.println("You selected OPTION 26: write on a file.");
+                    System.out.println("You selected OPTION 8: write on a file.");
                     System.out.println("Enter a path to a file");
                     path = scanner.nextLine();
                     //changes a file output stream into an object output stream
@@ -420,28 +406,28 @@ static class patientFiles implements Serializable{
                         System.err.println("I/O error: " + e.getMessage());
                     }
                     break;
-                    case 27:
-                        // Add logic for option 27
-                        System.out.println("You selected OPTION 27: Create a file.");
-                        System.out.println("Enter a path to a file: ");
-                        path = scanner.nextLine(); // Get the file path from the user
-                        path = scanner.nextLine();
-                        // path = "C:/Users/liamk/OneDrive/Documents/GitHub/IT355/BigProject.java";
+                case 9:
+                    // Add logic for option 9
+                    System.out.println("You selected OPTION 9: Create a file.");
+                    System.out.println("Enter a path to a file: ");
+                    path = scanner.nextLine(); // Get the file path from the user
+                    path = scanner.nextLine();
+                    // path = "C:/Users/liamk/OneDrive/Documents/GitHub/IT355/BigProject.java";
 
-                        System.out.println("Enter content to write to the file:");
-                        String content = scanner.nextLine(); // Get the content to write
+                    System.out.println("Enter content to write to the file:");
+                    String content = scanner.nextLine(); // Get the content to write
 
-                        try {
-                            createFileSafely(path, content); // Call the method to create and write to the file
-                        } catch (IOException e) {
-                            System.err.println("Error while creating or writing to the file: " + e.getMessage());
-                        }
-                        break;
-                case 81:
+                    try {
+                        createFileSafely(path, content); // Call the method to create and write to the file
+                    } catch (IOException e) {
+                        System.err.println("Error while creating or writing to the file: " + e.getMessage());
+                    }
+                    break;
+                case 10:
                     requstVisit(scanner);
                     break;
-                case 82:
-                System.out.println("You selected OPTION 82.");
+                case 11:
+                System.out.println("You selected OPTION 11.");
                 System.out.println("Please provide provided Hospital ID, Last Name, designated Pay Rate, and Profession");
                 System.out.println("Format: One entry per line");
                 int tempId;
@@ -510,8 +496,8 @@ static class patientFiles implements Serializable{
               }
               System.out.println("");
               break;
-                case 83:
-                System.out.println("You selected OPTION 83.");
+                case 12:
+                System.out.println("You selected OPTION 12.");
                 //Ensuring that hospital employees have been registered.
                 if (employeeList.size() > 0)
                 {
@@ -556,23 +542,20 @@ static class patientFiles implements Serializable{
                 //else condition for if no employees are registered.
                 else
                 {
-                System.out.println("Hospital registry empty, use OPTION 82 to add employees");
+                System.out.println("Hospital registry empty.");
                 break;
                 }
                 System.out.println("");  
                 break;
-                case 84:
-                    orderPizza(scanner, employeeList); //ERR04
+                case 13:
+                    stupidSearch(scanner, employeeList); //ERR04 - not abruptly return within the finally block | ERR53-J - Try to Gracefully Recover From System Errors |  ERR50-J - Use Exceptions Only for Exceptional Conditions
                     break;
-                case 85:
-                    deleteTrash(scanner); //FIO02
+                case 14:
+                    deleteTrash(scanner); //FIO02 - Detect and Handle File-Related Errors 
                     break;
-                case 86:
-                    leakPrivateData(scanner, employeeList); //FIO04
+                case 15:
+                    dataToFile(scanner, employeeList); //FIO04 - Release Resources When They are no Longer Needed
                     break;
-                case 87:
-                    isValidHospitalFile(scanner);
-                break;
                 default:
                     System.out.println("Invalid option. Please try again.\n\n");
             }
@@ -602,84 +585,64 @@ static class patientFiles implements Serializable{
     }
 
     /**
-    * Buffer 
+    * Buffer to avoid skipping directly to main loop
     * @param scanner the Scanner object used to read user input.
     */
     public static void returnToMain(Scanner scanner)
     {
-        System.out.print("Press 'any key + enter' to return to the main menu...");
-        scanner.next();
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        }
+        System.out.print("\nPress 'enter' to return to the main menu...");
+        scanner.nextLine();
         System.out.println(""); // Print a blank line for spacing
     }
 
     /**
-    * Validates that a given file path is resides within the allowed hospital directory
-    * @param filePath The file path to validate.
-    * @param scanner the Scanner object used to read user input.
-    * @return true if valid, false if invalid
-    */
-    public static boolean isValidHospitalFile(Scanner scanner) {
-        boolean flag = false;
-        System.out.print("Enter File: ");
-        String filePath = scanner.nextLine();
-        try {
-            // Define the allowed base directory for hospital files
-            File baseDir = new File("/hospital/data");
-            File fileName = new File(filePath);
-            //Canonicalize the file path
-            String canonicalPath = fileName.getCanonicalPath();
-            String baseCanonicalPath = baseDir.getCanonicalPath();
-            // Validate that the canonical path starts with the base directory path
-            if (canonicalPath.startsWith(baseCanonicalPath)) {
-                System.out.println("Valid hospital file path");
-                flag = true;
-            } else {
-                System.out.println("Invalid hospital file path.");
-                flag = true;
-            }
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        returnToMain(scanner);
-        return flag;
-    }
-
-    /**
-    * determines if the hospital can order pizza
+    * prints the list of employees to screen
     * @param scanner the Scanner object used to read user input.
     * @param list the list of employees
     */
-    public static boolean orderPizza(Scanner scanner, ArrayList<HospitalEmployee> list){
-        boolean flag = false;
+    public static void option1(Scanner scanner, ArrayList<HospitalEmployee> list)
+    {
+        if(list.isEmpty() == false)
+        {
+            System.out.println("List of Registered Employees:");
+            for(int i = 0; i <list.size(); i++)
+            {
+                System.out.println("\t" + list.get(i).toString());
+            }
+        }
+        else{
+            System.out.println("\tNo Employee Data to Print");
+        }
+        returnToMain(scanner);
+    }
+
+    /**
+    * search for employee using index
+    * @param scanner the Scanner object used to read user input.
+    * @param list the list of employees
+    */
+    public static void stupidSearch(Scanner scanner, ArrayList<HospitalEmployee> list) throws Exception{
+        list.get(100).toString();
         try {
-            if(list.size()/list.size() == 1)
-            {
-                flag = true;
-            }
-            else
-            {
-                flag = false;
-            }
-        } 
-        catch (Exception e) {
-            System.out.println("List is Empty");
-        } 
-        finally {
-            System.out.println("Calculation Over.");
-            if(flag == true)
-            {
-                System.out.println("\tPizza Time!");
-            }
-            else{
-                System.out.println("\tNo Pizza!");
-            }
+            System.out.print("Enter your favorite number: ");
+            int target = scanner.nextInt();
+            System.out.println("Wow! " + target + " is " + list.get(target).toString() + " favorite number");
+            
+        } catch (Exception x) { //ERR53-J - Try to Gracefully Recover From System Errors |  ERR50-J - Use Exceptions Only for Exceptional Conditions
+            System.out.println("You picked a bad number. No Employee exists at that index in the arrry.");
+            throw new NullPointerException();
+        }
+        finally{ //do not abruptly return within the finally block
+            System.out.println("Never Search like that again :)");
             returnToMain(scanner);
         }
-        return flag;
     }
     
     /**
-    * deletes a text file 
+    * deletes a text file - Rule: Detect and Handle File-Related Errors 
     * @param scanner the Scanner object used to read user input.
     */
     public static void deleteTrash(Scanner scanner){
@@ -696,11 +659,11 @@ static class patientFiles implements Serializable{
     }
 
     /**
-    * deletes a text file 
+    * deletes a text file - Rule: Release Resources When They are no Longer Needed
     * @param scanner the Scanner object used to read user input.
      * @throws IOException 
     */
-    public static void leakPrivateData(Scanner scanner, ArrayList<HospitalEmployee> list) throws IOException {
+    public static void dataToFile(Scanner scanner, ArrayList<HospitalEmployee> list) throws IOException {
         System.out.print("Enter the filename to save the employee data: ");
         String filename = scanner.nextLine(); // Get the file name from the user
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
@@ -726,7 +689,7 @@ static class patientFiles implements Serializable{
     * @param scanner the Scanner object used to read user input.
     */
     public static void requstVisit(Scanner scanner){
-        System.out.println("You selected OPTION 81.");
+        System.out.println("You selected OPTION 10.");
         System.out.print("Please enter patient's room number to request visitation: "); 
         int roomNum = 0;
        //checks if user input is valid
@@ -765,7 +728,7 @@ static class patientFiles implements Serializable{
             }
         }
 
-
+    //calculates the avg # of patients for a doctor
     private static double checkAvgPatients(HospitalEmployee emp, int totalPatientNum)
     {
         int hospitalDoctors = emp.getNumDoctors(); 
@@ -805,7 +768,6 @@ static class patientFiles implements Serializable{
         return CharBuffer.wrap(importantArray).asReadOnlyBuffer();
     }
 
-
     //FIO08 
     //Properly read char from something
     public static char[]  makeCharbuffer(FileInputStream in, char informationData) {
@@ -844,6 +806,7 @@ static class patientFiles implements Serializable{
     throws IOException {
         writeExample.defaultWriteObject();
     }
+    
     //Allow saftly reading into and object
     private void readObjectexp(final ObjectInputStream readExample)
     throws IOException, ClassNotFoundException {
@@ -892,6 +855,7 @@ static class patientFiles implements Serializable{
        
     //test to see if there is text in file
     }
+    
     //SEC00 p2
     @SuppressWarnings("removal")
     private static FileInputStream OpenTxtFile(String path) {
@@ -976,7 +940,7 @@ static class patientFiles implements Serializable{
     //SEC05
     //Create a trusted class
     public bigProject() {}
-   public static <Sec> Sec create(Class<Sec> trustedClass)
+    public static <Sec> Sec create(Class<Sec> trustedClass)
            throws InstantiationException, IllegalAccessException {
                //Creates a trusted class
                return trustedClass.newInstance();
