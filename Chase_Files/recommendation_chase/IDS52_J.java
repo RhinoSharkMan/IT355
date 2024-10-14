@@ -1,4 +1,4 @@
-package Chase_Files.recommendation_chase;
+package recommendation_chase;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;

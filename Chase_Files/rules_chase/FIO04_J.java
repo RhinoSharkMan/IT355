@@ -1,4 +1,4 @@
-package Chase_Files.rules_chase;
+package rules_chase;
 import java.io.*;
 /**
  * IT 355 - Group Project 1

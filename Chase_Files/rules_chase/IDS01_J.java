@@ -1,4 +1,4 @@
-package Chase_Files.rules_chase;
+package rules_chase;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.regex.Matcher;

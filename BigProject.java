@@ -225,6 +225,7 @@ public class BigProject {
 //Class Variables
 static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
 
+
 //CLASS: patientFile
 static class patientFiles implements Serializable{
     //marked transiant to prevent others from manipulating the file's path
@@ -238,6 +239,7 @@ static class patientFiles implements Serializable{
         }
     }
 }//END: patientFile
+private static SystemTray employeeList;
 
 
 /**
@@ -245,6 +247,7 @@ static class patientFiles implements Serializable{
  */
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, IOException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in); 
+        ArrayList<HospitalEmployee> employeeList = new ArrayList<>(); 
         String path;
         int control = 0;
         System.out.println("WELCOME TO HOSPITAL DIRECTORY\n");
@@ -260,6 +263,9 @@ static class patientFiles implements Serializable{
             System.out.println("OPTION 24: Lock patient files");
             System.out.println("OPTION 26: read a file");
             System.out.println("OPTION 27: write on a file");
+            System.out.println("OPTION 81: Request Visitation");
+            System.out.println("OPTION 82: Register New Employee");
+            System.out.println("OPTION 83: Get Average Patients per Doctor");
             System.out.println("OPTION 100: x");
             System.out.print("\nEnter your choice (-1 to exit): ");
             //Read user input
@@ -381,9 +387,132 @@ static class patientFiles implements Serializable{
                 case 81:
                     case81(scanner);
                     break;
-                case 100:
-                    // Add logic for option 100
-                    System.out.println("You selected OPTION 100.");
+                case 82: 
+                System.out.println("You selected OPTION 82.");
+                System.out.println("Please provide provided Hospital ID, Last Name, designated Pay Rate, and Profession");
+                System.out.println("Format: One entry per line");
+                int tempId;
+                String tempName;
+                double tempPay;
+                String tempProf;
+                boolean validInput = true;
+                //checking if inputs are consistent with given format: 
+                //checking if int is entered for HID
+                if(scanner.hasNextInt())
+                {
+                    tempId = scanner.nextInt();
+                }
+        
+                else{ 
+                    System.out.println("Invalid information provided");
+                    scanner.next();
+                    break;
+                    }
+                //checking if String is entered for last name
+                if(validInput && scanner.hasNext())
+                {
+                    tempName = scanner.next(); 
+                }
+                
+                else{ 
+                    System.out.println("Invalid information provided");
+                    scanner.next();
+                    break;
+                    }
+                //checking if double is entered for pay rate
+                if (validInput && scanner.hasNextDouble())
+                {
+                    tempPay = scanner.nextDouble(); 
+                }
+        
+                else{ 
+                    System.out.println("Invalid information provided");
+                    scanner.next();
+                    break;
+                    }
+                //checking if string is entered for profession 
+                if (validInput && scanner.hasNext())
+                {
+                    tempProf = scanner.next(); 
+                }
+                
+               else{ 
+                    System.out.println("Invalid information provided");
+                    scanner.next();
+                    break; 
+               }
+              //using HospitalJanitor subclass to create object.
+              if (tempProf.equals("Janitor"))
+              {
+                HospitalJanitor jan = new HospitalJanitor(tempId, tempName, tempPay, tempProf);
+                employeeList.add(jan); 
+                jan.getEmployeeInfo();
+              } 
+              //uses HospitalEmployee superclass for any other profession type. 
+              else
+              {
+               HospitalEmployee emp = new HospitalEmployee(tempId, tempName, tempPay, tempProf); 
+               employeeList.add(emp); 
+               emp.getEmployeeInfo();
+              }
+              System.out.println("");
+              break;
+                case 83:
+                System.out.println("You selected OPTION 83.");
+                //Ensuring that hospital employees have been registered.
+                if (employeeList.size() > 0)
+                {
+                    boolean validEmployee = false; 
+                    int validIndex = -1; 
+                    System.out.println("Registered Employees:");
+                    //Loop satisfies NUM09-J, avoids using a floating point as a loop counter. 
+                    for (int i = 0; i < employeeList.size(); i++)
+                    {
+                        System.out.println("Employee: " + employeeList.get(i).getName() + " | Profession: " + employeeList.get(i).getProfession());
+                        if (!validEmployee && employeeList.get(i).getSecurityLevel() > 0)
+                        {
+                            //determines if a registered employee has a valid profession, if so that employee object
+                            //will be used for the function call. 
+                            validEmployee = true;
+                            validIndex = i; 
+                        }
+    
+                    }
+                    //if valid employee found: continue by determining number of patients to find average. 
+                    if (validEmployee)
+                    {
+                        int numPatients = 0; 
+                        double averagePatient = 0.0;
+                        System.out.println("Enter number of patients to recieve average: ");
+    
+                        if (scanner.hasNextInt())
+                        {
+                            numPatients = scanner.nextInt();
+                            averagePatient = checkAvgPatients(employeeList.get(validIndex), numPatients); 
+                            System.out.println("On average, each doctor will treat: " + averagePatient + " patients.");
+                        }
+    
+                        else
+                        {
+                            System.out.println("Invalid input.");
+                            break; 
+                        }
+    
+                    }
+                }
+                //else condition for if no employees are registered. 
+                else 
+                {
+                System.out.println("Hospital registry empty, use OPTION 82 to add employees");
+                break;
+                }
+                
+                System.out.println("");  
+                break; 
+                
+
+                
+                
                 default:
                     System.out.println("Invalid option. Please try again.\n");
             }
@@ -444,6 +573,8 @@ static class patientFiles implements Serializable{
         //return
         returnToMain(scanner);
     }
+
+
 
     /*
     * Utilizing MET00-J by validating the method's arguments. 

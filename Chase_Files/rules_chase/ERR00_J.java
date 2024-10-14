@@ -1,4 +1,4 @@
-package Chase_Files.rules_chase;
+package rules_chase;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

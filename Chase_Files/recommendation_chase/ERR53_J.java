@@ -1,4 +1,4 @@
-package Chase_Files.recommendation_chase;
+package recommendation_chase;
 
 /**
  * IT 355 - Group Project 1
