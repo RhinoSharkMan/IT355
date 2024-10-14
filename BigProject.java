@@ -171,8 +171,7 @@ class HospitalEmployee
     }
  }
  
- /* 
-  * Subclass of HospitalEmployee, specifically for Janitor profession. 
+
 /* 
 * CLASS: HospitalJanitor
 * Subclass of HospitalEmployee, specifically for Janitor profession. 
