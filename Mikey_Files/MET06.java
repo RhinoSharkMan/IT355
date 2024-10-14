@@ -1,4 +1,4 @@
-package Mikey_Trevor_Files;
+package Mikey_Files;
 class MET06 implements Cloneable {
     int[] data;
     /**

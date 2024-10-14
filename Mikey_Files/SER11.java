@@ -1,4 +1,4 @@
-package Mikey_Trevor_Files;
+package Mikey_Files;
 
 import java.io.IOException;
 import java.io.ObjectInput;

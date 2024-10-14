@@ -1,4 +1,4 @@
-package Mikey_Trevor_Files;
+package Mikey_Files;
 /**
  * The OBJ13 class represents an object with a list of immutable elements.
  * The class ensures encapsulation by preventing external modification of internal state.
