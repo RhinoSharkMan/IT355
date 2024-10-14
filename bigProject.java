@@ -12,8 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.*;
 import java.util.*;
-import java.net.SocketPermission;
-import java.util.logging.*;
 // import java.lang.classfile.instruction.ThrowInstruction;
 
 //CLASS: Medication
@@ -241,8 +239,6 @@ public class bigProject {
 
 //Medication Variables
 static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
-private static final Logger logger = Logger.getLogger(bigProject.class.getName());
-private static final boolean IS_TEST_ENVIRONMENT = false; // Set to true in a test environment
 
 
 //CLASS: patientFile
@@ -274,13 +270,7 @@ static class patientFiles implements Serializable{
         employeeList.add(x);
         String path;
         int control = 0;
-
-        if (IS_TEST_ENVIRONMENT) {
-            System.out.println("This is a test method.");
-            control = -1;
-        }
-        
-        System.out.println("WELCOME TO X DIRECTORY\n");
+        System.out.println("WELCOME TO HOSPITAL DIRECTORY\n");
         while (control != -1) {
             control = 0;
             //Display options
@@ -290,10 +280,15 @@ static class patientFiles implements Serializable{
             System.out.println("OPTION 21: Open a File path");
             System.out.println("OPTION 22: Verify a file path");
             System.out.println("OPTION 23: Create a Class");
-            System.out.println("OPTION 24: Lock patient files");
-            System.out.println("OPTION 25: read a file");
-            System.out.println("OPTION 26: write on a file");
-            System.out.println("OPTION 27: create a file");
+            System.out.println("OPTION 24: Lock Patient Files");
+            System.out.println("OPTION 26: Read a File");
+            System.out.println("OPTION 27: Write on a File");
+            System.out.println("OPTION 81: Request Visitation");
+            System.out.println("OPTION 82: Register New Employee");
+            System.out.println("OPTION 83: Get Average Patients per Doctor");
+            System.out.println("OPTION 84: Order Pizza");
+            System.out.println("OPTION 85: Delete Trash");
+            System.out.println("OPTION 86: Employee Data to A File");
             System.out.println("OPTION 100: x");
             System.out.print("\nEnter your choice (-1 to exit): ");
             //Read user input
@@ -413,27 +408,142 @@ static class patientFiles implements Serializable{
                         System.err.println("I/O error: " + e.getMessage());
                     }
                     break;
-                case 27:
-                    // Add logic for option 27
-                    System.out.println("You selected OPTION 27: Create a file.");
-                    System.out.println("Enter a path to a file: ");
-                    path = scanner.nextLine(); // Get the file path from the user
-                    path = scanner.nextLine();
-                    // path = "C:/Users/liamk/OneDrive/Documents/GitHub/IT355/BigProject.java";
-
-                    System.out.println("Enter content to write to the file:");
-                    String content = scanner.nextLine(); // Get the content to write
-
-                    try {
-                        createFileSafely(path, content); // Call the method to create and write to the file
-                    } catch (IOException e) {
-                        System.err.println("Error while creating or writing to the file: " + e.getMessage());
+                case 81:
+                    requstVisit(scanner);
+                    break;
+                case 82:
+                System.out.println("You selected OPTION 82.");
+                System.out.println("Please provide provided Hospital ID, Last Name, designated Pay Rate, and Profession");
+                System.out.println("Format: One entry per line");
+                int tempId;
+                String tempName;
+                double tempPay;
+                String tempProf;
+                boolean validInput = true;
+                //checking if inputs are consistent with given format:
+                //checking if int is entered for HID
+                if(scanner.hasNextInt())
+                {
+                    tempId = scanner.nextInt();
+                }
+       
+                else{
+                    System.out.println("Invalid information provided");
+                    scanner.next();
+                    break;
                     }
+                //checking if String is entered for last name
+                if(validInput && scanner.hasNext())
+                {
+                    tempName = scanner.next();
+                }
+               
+                else{
+                    System.out.println("Invalid information provided");
+                    scanner.next();
                     break;
-                case 100:
-                    // Add logic for option 100
-                    System.out.println("You selected OPTION 100.");
+                    }
+                //checking if double is entered for pay rate
+                if (validInput && scanner.hasNextDouble())
+                {
+                    tempPay = scanner.nextDouble();
+                }
+       
+                else{
+                    System.out.println("Invalid information provided");
+                    scanner.next();
                     break;
+                    }
+                //checking if string is entered for profession
+                if (validInput && scanner.hasNext())
+                {
+                    tempProf = scanner.next();
+                }
+               
+               else{
+                    System.out.println("Invalid information provided");
+                    scanner.next();
+                    break;
+               }
+              //using HospitalJanitor subclass to create object.
+              if (tempProf.equals("Janitor"))
+              {
+                HospitalJanitor jan = new HospitalJanitor(tempId, tempName, tempPay, tempProf);
+                employeeList.add(jan);
+                jan.getEmployeeInfo();
+              }
+              //uses HospitalEmployee superclass for any other profession type.
+              else
+              {
+               HospitalEmployee emp = new HospitalEmployee(tempId, tempName, tempPay, tempProf);
+               employeeList.add(emp);
+               emp.getEmployeeInfo();
+              }
+              System.out.println("");
+              break;
+                case 83:
+                System.out.println("You selected OPTION 83.");
+                //Ensuring that hospital employees have been registered.
+                if (employeeList.size() > 0)
+                {
+                    boolean validEmployee = false;
+                    int validIndex = -1;
+                    System.out.println("Registered Employees:");
+                    //Loop satisfies NUM09-J, avoids using a floating point as a loop counter.
+                    for (int i = 0; i < employeeList.size(); i++)
+                    {
+                        System.out.println("Employee: " + employeeList.get(i).getName() + " | Profession: " + employeeList.get(i).getProfession());
+                        if (!validEmployee && employeeList.get(i).getSecurityLevel() > 0)
+                        {
+                            //determines if a registered employee has a valid profession, if so that employee object
+                            //will be used for the function call.
+                            validEmployee = true;
+                            validIndex = i;
+                        }
+   
+                    }
+                    //if valid employee found: continue by determining number of patients to find average.
+                    if (validEmployee)
+                    {
+                        int numPatients = 0;
+                        double averagePatient = 0.0;
+                        System.out.println("Enter number of patients to recieve average: ");
+   
+                        if (scanner.hasNextInt())
+                        {
+                            numPatients = scanner.nextInt();
+                            averagePatient = checkAvgPatients(employeeList.get(validIndex), numPatients);
+                            System.out.println("On average, each doctor will treat: " + averagePatient + " patients.");
+                        }
+   
+                        else
+                        {
+                            System.out.println("Invalid input.");
+                            break;
+                        }
+   
+                    }
+                }
+                //else condition for if no employees are registered.
+                else
+                {
+                System.out.println("Hospital registry empty, use OPTION 82 to add employees");
+                break;
+                }
+                System.out.println("");  
+                break;
+                case 84:
+                    orderPizza(scanner, employeeList); //ERR04
+                    break;
+                case 85:
+                    deleteTrash(scanner); //FIO02
+                    break;
+                case 86:
+                    leakPrivateData(scanner, employeeList); //FIO04
+                    break;
+                case 87:
+                    isValidHospitalFile(scanner);
+                break;
                 default:
                     System.out.println("Invalid option. Please try again.\n\n");
             }
@@ -462,6 +572,197 @@ static class patientFiles implements Serializable{
         return input;
     }
 
+    /**
+    * Buffer 
+    * @param scanner the Scanner object used to read user input.
+    */
+    public static void returnToMain(Scanner scanner)
+    {
+        System.out.print("Press 'any key + enter' to return to the main menu...");
+        scanner.next();
+        System.out.println(""); // Print a blank line for spacing
+    }
+
+    /**
+    * Validates that a given file path is resides within the allowed hospital directory
+    * @param filePath The file path to validate.
+    * @param scanner the Scanner object used to read user input.
+    * @return true if valid, false if invalid
+    */
+    public static boolean isValidHospitalFile(Scanner scanner) {
+        boolean flag = false;
+        System.out.print("Enter File: ");
+        String filePath = scanner.nextLine();
+        try {
+            // Define the allowed base directory for hospital files
+            File baseDir = new File("/hospital/data");
+            File fileName = new File(filePath);
+            //Canonicalize the file path
+            String canonicalPath = fileName.getCanonicalPath();
+            String baseCanonicalPath = baseDir.getCanonicalPath();
+            // Validate that the canonical path starts with the base directory path
+            if (canonicalPath.startsWith(baseCanonicalPath)) {
+                System.out.println("Valid hospital file path");
+                flag = true;
+            } else {
+                System.out.println("Invalid hospital file path.");
+                flag = true;
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        returnToMain(scanner);
+        return flag;
+    }
+
+    /**
+    * determines if the hospital can order pizza
+    * @param scanner the Scanner object used to read user input.
+    * @param list the list of employees
+    */
+    public static boolean orderPizza(Scanner scanner, ArrayList<HospitalEmployee> list){
+        boolean flag = false;
+        try {
+            if(list.size()/list.size() == 1)
+            {
+                flag = true;
+            }
+            else
+            {
+                flag = false;
+            }
+        } 
+        catch (Exception e) {
+            System.out.println("List is Empty");
+        } 
+        finally {
+            System.out.println("Calculation Over.");
+            if(flag == true)
+            {
+                System.out.println("\tPizza Time!");
+            }
+            else{
+                System.out.println("\tNo Pizza!");
+            }
+            returnToMain(scanner);
+        }
+        return flag;
+    }
+    
+    /**
+    * deletes a text file 
+    * @param scanner the Scanner object used to read user input.
+    */
+    public static void deleteTrash(Scanner scanner){
+        File file = new File("Trash");
+        if (file.delete() == false) {
+            //Deletion of file failed. Handle the error 
+            System.err.println("Failed to remove trash (ew): " + file.getAbsolutePath());
+            returnToMain(scanner);
+        } 
+        else {
+            System.out.println("Trash has been removed :)");
+            returnToMain(scanner);
+        }
+    }
+
+    /**
+    * deletes a text file 
+    * @param scanner the Scanner object used to read user input.
+     * @throws IOException 
+    */
+    public static void leakPrivateData(Scanner scanner, ArrayList<HospitalEmployee> list) throws IOException {
+        System.out.print("Enter the filename to save the employee data: ");
+        String filename = scanner.nextLine(); // Get the file name from the user
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        try{
+            writer.write("Employee Data:\n");
+            for (HospitalEmployee employee : list) {
+                writer.write(employee.toString());
+                writer.newLine();
+            System.out.println("Data has been successfully written to " + filename);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage()); //ERR53-J - Try to Gracefully Recover From System Errors
+        } 
+        finally
+        {
+            writer.close(); //MAKE SURE RESOURCES ARE CLOSED
+            returnToMain(scanner);
+        }
+    }
+
+    /**
+    * displays when a user wants to request a vistiation 
+    * @param scanner the Scanner object used to read user input.
+    */
+    public static void requstVisit(Scanner scanner){
+        System.out.println("You selected OPTION 81.");
+        System.out.print("Please enter patient's room number to request visitation: "); 
+        int roomNum = 0;
+       //checks if user input is valid
+        roomNum = validateInput(roomNum, scanner);
+       //if checks if room number is in valid hospital range (101-5099)
+        if (checkRoomNumber(roomNum))
+        {
+            System.out.println("Valid room number entered, request has been created"); 
+        }
+        else
+        {
+            System.out.println("Room number incorrect, please contact patient's medical staff to find correct room"); 
+        }
+        //return
+        returnToMain(scanner);
+    }
+
+    /*
+    * Utilizing MET00-J by validating the method's arguments. 
+    * Also satisfies MET01-J by not using assertions to validate the argument. 
+    * Hospital has 50 floors, room number has to 101 - 5099
+    * @param room integer describing hospital's room number
+    * @return true if room is in correct range, false otherwise. 
+    */
+    public static boolean checkRoomNumber(int room)
+        {
+            //validating arguments
+            if (room >= 101 && room <= 5099)
+            {
+                return true; 
+            }
+    
+            else
+            {
+            return false; 
+            }
+        }
+
+
+    private static double checkAvgPatients(HospitalEmployee emp, int totalPatientNum)
+    {
+        int hospitalDoctors = emp.getNumDoctors(); 
+
+        //Satisfies MET01-J, validating method arguments without using assertions
+        if (emp.getSecurityLevel() == 0)
+        {
+            System.out.println("Employee entered is not valid"); 
+            return -1;
+        }
+        //Satisfies MET01-J, validating method arguments without using assertions
+        if (!(totalPatientNum > 0))
+        {
+            System.out.println("Invalid number of patients entered"); 
+            return -1;
+        }
+        //Satisfies NUM02-J, ensuring that resulting division does not result in divide by zero error. 
+        if (hospitalDoctors == 0)
+        {
+            System.out.println("No doctors currently stored");
+            System.out.println("Cannot compute to avoid dividing by zero");
+            return -1; 
+        }
+
+        return totalPatientNum / hospitalDoctors; 
+    }
 
     //References getCharBufferedCopy
     public static CharBuffer getRefereneCharBuffer(char importantArray[]) {
@@ -619,23 +920,26 @@ static class patientFiles implements Serializable{
     }
 
     //Write a outputfile
-    //Implements Rule SEC rule family and rec FIO50
     private static void createFileSafely(String filePath, String content) throws IOException {
         File file = new File(filePath);
         
         // Check if the file already made
         if (file.exists()) {
-            logger.warning("File already exists: " + file.getAbsolutePath());
             System.out.println("File already created: " + file.getAbsolutePath());
-            return;
         } else {
+            boolean fileCreated = file.createNewFile(); //Check to see if file was created
+            
             try {
                 Files.write(Paths.get(filePath), content.getBytes());
-                logger.info("File written successfully to " + filePath);
-                System.out.println("File created successfully: " + file.getAbsolutePath());
+                System.out.println("File written successfully to " + filePath);
             } catch (IOException e) {
-                logger.log(Level.SEVERE, "Error while creating or writing to the file: {0}", e.getMessage());
-                System.err.println("Error while creating or writing to the file. Please try again.");
+                e.printStackTrace();
+            }
+            //Output statis of the created file
+            if (fileCreated) {
+                System.out.println("File created successfully: " + file.getAbsolutePath());
+            } else {
+                throw new IOException("Failed to create the file at: " + file.getAbsolutePath());
             }
         }
     }
