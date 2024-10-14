@@ -949,22 +949,26 @@ static class patientFiles implements Serializable{
     }
 
     //Write a outputfile
-    //Implements Rule SEC rule family and rec FIO50
     private static void createFileSafely(String filePath, String content) throws IOException {
         File file = new File(filePath);
         
         // Check if the file already made
         if (file.exists()) {
-            logger.warning("File already exists: " + file.getAbsolutePath());
             System.out.println("File already created: " + file.getAbsolutePath());
-            return;
         } else {
+            boolean fileCreated = file.createNewFile(); //Check to see if file was created
+            
             try {
                 Files.write(Paths.get(filePath), content.getBytes());
-                logger.info("File written successfully to " + filePath);
-                System.out.println("File created successfully: " + file.getAbsolutePath());
+                System.out.println("File written successfully to " + filePath);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            //Output statis of the created file
+            if (fileCreated) {
+                System.out.println("File created successfully: " + file.getAbsolutePath());
+            } else {
+                throw new IOException("Failed to create the file at: " + file.getAbsolutePath());
             }
         }
     }
