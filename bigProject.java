@@ -294,6 +294,7 @@ static class patientFiles implements Serializable{
             System.out.println("OPTION 25: read a file");
             System.out.println("OPTION 26: write on a file");
             System.out.println("OPTION 27: create a file");
+            System.out.println("88");
             System.out.println("OPTION 100: x");
             System.out.print("\nEnter your choice (-1 to exit): ");
             //Read user input
