@@ -14,6 +14,10 @@ import java.security.*;
 import java.util.*;
 import java.net.SocketPermission;
 import java.util.logging.*;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 // import java.lang.classfile.instruction.ThrowInstruction;
 
 //CLASS: Medication
@@ -300,7 +304,7 @@ static class patientFiles implements Serializable{
             System.out.println("OPTION 13: Search For Employee");
             System.out.println("OPTION 14: Delete Trash");
             System.out.println("OPTION 15: Employee Data to A File");
-            System.out.println("OPTION 100: x");
+            System.out.println("OPTION 16: Open Package");
             System.out.print("\nEnter your choice (-1 to exit): ");
             //Read user input
             control = validateInput(control, scanner);
@@ -556,6 +560,10 @@ static class patientFiles implements Serializable{
                 case 15:
                     dataToFile(scanner, employeeList); //FIO04 - Release Resources When They are no Longer Needed
                     break;
+                case 16:
+                    String message = "hello :)";
+                    openPackage(scanner, message); //IDS01-J - Normalize Strings Before Validating Them
+                    break;
                 default:
                     System.out.println("Invalid option. Please try again.\n\n");
             }
@@ -615,6 +623,32 @@ static class patientFiles implements Serializable{
         }
         else{
             System.out.println("\tNo Employee Data to Print");
+        }
+        returnToMain(scanner);
+    }
+
+    /**
+    * Example of - Normalize Strings Before Validating Them
+    * This method takes a string - it normalizes it to its canonical form, and validates the string for any malicious content. 
+    * Specifically, it checks for unicode angle brackets ("<", ">"), which can be dangerous 
+    * @param scanner the Scanner object used to read user input.
+    * @param message a string that represents a message 
+    */
+    public static void openPackage(Scanner scanner, String message)
+    {
+        //Normalize the string
+        message = Normalizer.normalize(message, Form.NFKC);
+        // Validate: Check for blacklisted characters like angle brackets
+        Pattern pattern = Pattern.compile("[<>]");
+        Matcher matcher = pattern.matcher(message);
+        if (matcher.find() == true) {
+            //Found blacklisted tag, throwing exception
+            System.out.println("Malicious input detected. Do not print message.)");
+        } 
+        else {
+            // Proceed with normal processing
+            System.out.println("Input is safe...");
+            System.out.println("Message: " + message);
         }
         returnToMain(scanner);
     }

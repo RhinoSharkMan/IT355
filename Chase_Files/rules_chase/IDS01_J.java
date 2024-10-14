@@ -28,6 +28,7 @@ class IDS01_J {
     public static void exampleMethod() {
         //string containing alternative representations of angle brackets
         String test = "\uFE64" + "script" + "\uFE65";  //representing <script>
+        System.out.println(test);
         //Normalize the string
         test = Normalizer.normalize(test, Form.NFKC);
         // Validate: Check for blacklisted characters like angle brackets
