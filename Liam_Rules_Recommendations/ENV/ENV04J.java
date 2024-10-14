@@ -1,12 +1,12 @@
-//Command line code
-//Created by Liam Knap
+//  Command line code
+//  Created by Liam Knap
 
-//Secutiry risk
-//Command line:
-//java -Xverify:none ApplicationName
+//  Secutiry risk
+//  Command line:
+//  java -Xverify:none ApplicationName
 
-//Compliant Code
-//Command line:
-//java -Xverify ApplicationName
-//or 
-//java ApplicationName
+//  Compliant Code
+//  Command line:
+//  java -Xverify ApplicationName
+//  or 
+//  java ApplicationName
