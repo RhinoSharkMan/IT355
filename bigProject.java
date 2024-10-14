@@ -493,7 +493,7 @@ static class patientFiles implements Serializable{
 
     //References getCharBufferedCopy
     public static CharBuffer getRefereneCharBuffer(char importantArray[]) {
-        bigProject getReferenceChar = new bigProject();
+        BigProject getReferenceChar = new BigProject();
         return getReferenceChar.getCharBufferedCopy(importantArray);
     }
 
@@ -524,14 +524,14 @@ static class patientFiles implements Serializable{
     //call functions for the write of an object
     private static void getWrite(final ObjectOutputStream writeOBJ) 
     throws IOException {
-        bigProject writeObj = new bigProject();
+        BigProject writeObj = new BigProject();
         writeObj.writeObjectexp(writeOBJ); 
     }
 
     //call functions for the read of an object
     private static void getRead(final ObjectInputStream readOBJ) 
     throws IOException, ClassNotFoundException {
-        bigProject readObj = new bigProject();
+        BigProject readObj = new BigProject();
         readObj.readObjectexp(readOBJ); 
     }
     
