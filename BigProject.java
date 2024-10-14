@@ -167,8 +167,15 @@ class HospitalEmployee{
     {
         return this.profession; 
     }
+
+    /* 
+     * to String
+     *
+    */
+    public String toString(){
+        return this.lastName + " the " + this.profession;
+    }
  }
- 
 
  /* 
 * CLASS: HospitalJanitor
@@ -242,10 +249,16 @@ public class BigProject {
 
     /**
      * Main method 
+     * @throws IOException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     * @throws Exception 
      */
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException, IOException, ClassNotFoundException {
+    public static void main(String[] args) throws Exception{
         Scanner scanner = new Scanner(System.in); 
         ArrayList<HospitalEmployee> employeeList = new ArrayList<>(); 
+        HospitalEmployee x = new HospitalEmployee(101, "Radahn", 9999999, "Heart Surgeon");
+        employeeList.add(x);
         String path;
         int control = 0;
         System.out.println("WELCOME TO HOSPITAL DIRECTORY\n");
@@ -255,15 +268,18 @@ public class BigProject {
             System.out.println("OPTION 1: x");
             System.out.println("OPTION 2: x");
             System.out.println("OPTION 20: Get Char array form a File");
-            System.out.println("OPTION 21: open a file path");
+            System.out.println("OPTION 21: Open a File path");
             System.out.println("OPTION 22: Verify a file path");
             System.out.println("OPTION 23: Create a Class");
-            System.out.println("OPTION 24: Lock patient files");
-            System.out.println("OPTION 26: read a file");
-            System.out.println("OPTION 27: write on a file");
+            System.out.println("OPTION 24: Lock Patient Files");
+            System.out.println("OPTION 26: Read a File");
+            System.out.println("OPTION 27: Write on a File");
             System.out.println("OPTION 81: Request Visitation");
             System.out.println("OPTION 82: Register New Employee");
             System.out.println("OPTION 83: Get Average Patients per Doctor");
+            System.out.println("OPTION 84: Order Pizza");
+            System.out.println("OPTION 85: Delete Trash");
+            System.out.println("OPTION 86: Employee Data to A File");
             System.out.println("OPTION 100: x");
             System.out.print("\nEnter your choice (-1 to exit): ");
             //Read user input
@@ -383,7 +399,7 @@ public class BigProject {
                     }
                     break;
                 case 81:
-                    case81(scanner);
+                    requstVisit(scanner);
                     break;
                 case 82: 
                 System.out.println("You selected OPTION 82.");
@@ -504,13 +520,23 @@ public class BigProject {
                 System.out.println("Hospital registry empty, use OPTION 82 to add employees");
                 break;
                 }
-                
                 System.out.println("");  
                 break; 
-                
+                case 84:
+                    orderPizza(scanner, employeeList); //ERR04
+                    break;
+                case 85:
+                    deleteTrash(scanner); //FIO02
+                    break;
+                case 86:
+                    leakPrivateData(scanner, employeeList); //FIO04
+                    break;
+                case 87:
+                break;
+
 
                 
-                
+    
                 default:
                     System.out.println("Invalid option. Please try again.\n");
             }
@@ -550,10 +576,87 @@ public class BigProject {
     }
 
     /**
+    * determines if the hospital can order pizza
+    * @param scanner the Scanner object used to read user input.
+    * @param list the list of employees
+    */
+    public static boolean orderPizza(Scanner scanner, ArrayList<HospitalEmployee> list){
+        boolean flag = false;
+        try {
+            if(list.size()/list.size() == 1)
+            {
+                flag = true;
+            }
+            else
+            {
+                flag = false;
+            }
+        } 
+        catch (Exception e) {
+            System.out.println("List is Empty");
+        } 
+        finally {
+            System.out.println("Calculation Over.");
+            if(flag == true)
+            {
+                System.out.println("\tPizza Time!");
+            }
+            else{
+                System.out.println("\tNo Pizza!");
+            }
+            returnToMain(scanner);
+        }
+        return flag;
+    }
+    
+    /**
+    * deletes a text file 
+    * @param scanner the Scanner object used to read user input.
+    */
+    public static void deleteTrash(Scanner scanner){
+        File file = new File("Trash");
+        if (file.delete() == false) {
+            //Deletion of file failed. Handle the error 
+            System.err.println("Failed to remove trash (ew): " + file.getAbsolutePath());
+            returnToMain(scanner);
+        } 
+        else {
+            System.out.println("Trash has been removed :)");
+            returnToMain(scanner);
+        }
+    }
+
+    /**
+    * deletes a text file 
+    * @param scanner the Scanner object used to read user input.
+     * @throws IOException 
+    */
+    public static void leakPrivateData(Scanner scanner, ArrayList<HospitalEmployee> list) throws IOException {
+        System.out.print("Enter the filename to save the employee data: ");
+        String filename = scanner.nextLine(); // Get the file name from the user
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        try{
+            writer.write("Employee Data:\n");
+            for (HospitalEmployee employee : list) {
+                writer.write(employee.toString());
+                writer.newLine();
+            System.out.println("Data has been successfully written to " + filename);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage()); //ERR53-J - Try to Gracefully Recover From System Errors
+        } 
+        finally
+        {
+            writer.close(); //MAKE SURE RESOURCES ARE CLOSED
+            returnToMain(scanner);
+        }
+    }
+
+    /**
     * displays when a user wants to request a vistiation 
     * @param scanner the Scanner object used to read user input.
     */
-    public static void case81(Scanner scanner){
+    public static void requstVisit(Scanner scanner){
         System.out.println("You selected OPTION 81.");
         System.out.print("Please enter patient's room number to request visitation: "); 
         int roomNum = 0;
@@ -571,8 +674,6 @@ public class BigProject {
         //return
         returnToMain(scanner);
     }
-
-
 
     /*
     * Utilizing MET00-J by validating the method's arguments. 
