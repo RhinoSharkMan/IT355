@@ -41,12 +41,10 @@ class Medication {
 
 
 /* 
-* Class that initailizes stored HospitalEmployees 
 * CLASS: HospitalEmployee
 * Satisfies OBJ51-J by minimization accessbility of classes and its members, only accessible to package. 
 */
-class HospitalEmployee
- {
+class HospitalEmployee{
      private int HID; 
      private String lastName; 
      private double payRate; 
@@ -172,7 +170,7 @@ class HospitalEmployee
  }
  
 
-/* 
+ /* 
 * CLASS: HospitalJanitor
 * Subclass of HospitalEmployee, specifically for Janitor profession. 
  */
@@ -218,32 +216,33 @@ class HospitalEmployee
     }
  }
 
-//CLASS: BigProject
+
+ //CLASS: BigProject
 public class BigProject {
 
-//Class Variables
-static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
+    //Class Variables
+    static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
 
 
-//CLASS: patientFile
-static class patientFiles implements Serializable{
-    //marked transiant to prevent others from manipulating the file's path
-    transient File patientFile;
-    //created an innerclass with acordance to SER05
-    class files{
-     public void patientfiles(File protectedFile) throws FileNotFoundException{
-        //File is not serialized with rest class 
-        //File is not exposed to attackes
-        patientFile = new File("/this PC/local Disk (C:)/patient.txt");
+    //CLASS: patientFile
+    static class patientFiles implements Serializable{
+        //marked transiant to prevent others from manipulating the file's path
+        transient File patientFile;
+        //created an innerclass with acordance to SER05
+        class files{
+        public void patientfiles(File protectedFile) throws FileNotFoundException{
+            //File is not serialized with rest class 
+            //File is not exposed to attackes
+            patientFile = new File("/this PC/local Disk (C:)/patient.txt");
+            }
         }
-    }
-}//END: patientFile
-private static SystemTray employeeList;
+    }//END: patientFile
+    private static SystemTray employeeList;
 
 
-/**
- * Main method 
- */
+    /**
+     * Main method 
+     */
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, IOException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in); 
         ArrayList<HospitalEmployee> employeeList = new ArrayList<>(); 
@@ -519,9 +518,9 @@ private static SystemTray employeeList;
         scanner.close();
     }
 
-/*
- * ALL OTHER METHODS
- */
+    /*
+    * ALL OTHER METHODS
+    */
 
      /**
     * Validates the that the input from main is an int
