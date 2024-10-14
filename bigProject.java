@@ -8,6 +8,8 @@
 // import java.awt.im.InputContext;
 import java.io.*;
 import java.nio.CharBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.*;
 import java.util.*;
 // import java.lang.classfile.instruction.ThrowInstruction;
@@ -80,8 +82,8 @@ static class patientFiles implements Serializable{
             System.out.println("OPTION 22: Verify a file path");
             System.out.println("OPTION 23: Create a Class");
             System.out.println("OPTION 24: Lock patient files");
-            System.out.println("OPTION 26: read a file");
-            System.out.println("OPTION 27: write on a file");
+            System.out.println("OPTION 25: read a file");
+            System.out.println("OPTION 26: write on a file");
             System.out.println("OPTION 100: x");
             System.out.print("\nEnter your choice (-1 to exit): ");
 
@@ -386,6 +388,31 @@ static class patientFiles implements Serializable{
         }
         Runtime.getRuntime().exit(1);
         //makes code complient to FOI14    
+    }
+
+    //Write a outputfile
+    private static void createFileSafely(String filePath, String content) throws IOException {
+        File file = new File(filePath);
+        
+        // Check if the file already made
+        if (file.exists()) {
+            System.out.println("File already created: " + file.getAbsolutePath());
+        } else {
+            boolean fileCreated = file.createNewFile(); //Check to see if file was created
+            
+            try {
+                Files.write(Paths.get(filePath), content.getBytes());
+                System.out.println("File written successfully to " + filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //Output statis of the created file
+            if (fileCreated) {
+                System.out.println("File created successfully: " + file.getAbsolutePath());
+            } else {
+                throw new IOException("Failed to create the file at: " + file.getAbsolutePath());
+            }
+        }
     }
 
     //SEC05
