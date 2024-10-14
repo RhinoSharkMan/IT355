@@ -41,7 +41,7 @@ class Medication {
 
 
 /* 
-* Class that initailizes stored HospitalEmployees 
+* CLASS: HospitalEmployee
 * Satisfies OBJ51-J by minimization accessbility of classes and its members, only accessible to package. 
 */
 class HospitalEmployee
@@ -170,8 +170,9 @@ class HospitalEmployee
     }
  }
  
- /* 
-  * Subclass of HospitalEmployee, specifically for Janitor profession. 
+/* 
+* CLASS: HospitalJanitor
+* Subclass of HospitalEmployee, specifically for Janitor profession. 
  */
  class HospitalJanitor extends HospitalEmployee
  {
@@ -215,8 +216,8 @@ class HospitalEmployee
     }
  }
 
-//CLASS: BIG_PROJECT
-public class bigProject {
+//CLASS: BigProject
+public class BigProject {
 
 //Class Variables
 static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
@@ -326,7 +327,7 @@ static class patientFiles implements Serializable{
                     // Add logic for option 23
                     System.out.println("You selected OPTION 23: Create a Class");
                     //creates a trusted class
-                    Class<bigProject> trustedClass = null;
+                    Class<BigProject> trustedClass = null;
                     create(trustedClass);
                     System.out.println("You created a new trusted class.");
                     break;
@@ -614,7 +615,7 @@ static class patientFiles implements Serializable{
 
     //allows the communication of lockObject
     public static void lockrefernce(ObjectInput in) throws IOException, ClassNotFoundException {
-        bigProject lockObj = new bigProject();
+        BigProject lockObj = new BigProject();
         lockObj.lockObject(in);
     }
 
@@ -645,7 +646,7 @@ static class patientFiles implements Serializable{
 
     //SEC05
     //Create a trusted class
-    public bigProject() {}
+    public BigProject() {}
     public static <Sec> Sec create(Class<Sec> trustedClass)
            throws InstantiationException, IllegalAccessException {
                //Creates a trusted class
