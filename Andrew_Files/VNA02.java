@@ -1,3 +1,4 @@
+package Andrew_Files;
 public class VNA02 implements Runnable {
   private static volatile int testVal; 
 //main method creates two threads and calls run function with both. 

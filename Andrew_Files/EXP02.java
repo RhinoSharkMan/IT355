@@ -1,4 +1,4 @@
-package andrew_files;
+package Andrew_Files;
 import java.util.Arrays;
 public class EXP02 {
     public static void main(String[] args) 
