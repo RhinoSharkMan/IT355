@@ -4,26 +4,13 @@
  */
 
 
-import java.awt.SystemTray;
-import java.awt.im.InputContext;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintStream;
-import java.io.Serializable;
-import java.nio.CharBuffer;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
-import java.util.*;
+// import java.awt.SystemTray;
+// import java.awt.im.InputContext;
 import java.io.*;
-import java.lang.classfile.instruction.ThrowInstruction;
+import java.nio.CharBuffer;
+import java.security.*;
+import java.util.*;
+// import java.lang.classfile.instruction.ThrowInstruction;
 
 //CLASS: Medication
 class Medication {
@@ -315,6 +302,7 @@ static class patientFiles implements Serializable{
             cleanedFiles[cleanedFileCount] = path;
         
         try {
+            @SuppressWarnings({ "unchecked", "removal" })
             FileInputStream editFile =
                 (FileInputStream) AccessController.doPrivileged(
                     new PrivilegedExceptionAction() {
@@ -345,6 +333,7 @@ static class patientFiles implements Serializable{
     //test to see if there is text in file
     }
     //SEC00 p2
+    @SuppressWarnings("removal")
     private static FileInputStream OpenTxtFile(String path) {
         final String txt_file = path;
         final FileInputStream exp[] = { null };
