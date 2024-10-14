@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.*;
 import java.util.*;
+import java.net.SocketPermission;
+import java.util.logging.*;
 // import java.lang.classfile.instruction.ThrowInstruction;
 
 //CLASS: Medication
@@ -239,6 +241,9 @@ public class bigProject {
 
 //Medication Variables
 static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
+private static final Logger logger = Logger.getLogger(bigProject.class.getName());
+private static final boolean IS_TEST_ENVIRONMENT = false; // Set to true in a test environment
+
 
 
 //CLASS: patientFile
@@ -270,6 +275,13 @@ static class patientFiles implements Serializable{
         employeeList.add(x);
         String path;
         int control = 0;
+
+        if (IS_TEST_ENVIRONMENT) {
+            System.out.println("This is a test method.");
+            control = -1;
+        }
+        
+        System.out.println("WELCOME TO X DIRECTORY\n");
         System.out.println("WELCOME TO HOSPITAL DIRECTORY\n");
         while (control != -1) {
             control = 0;
@@ -408,6 +420,23 @@ static class patientFiles implements Serializable{
                         System.err.println("I/O error: " + e.getMessage());
                     }
                     break;
+                    case 27:
+                        // Add logic for option 27
+                        System.out.println("You selected OPTION 27: Create a file.");
+                        System.out.println("Enter a path to a file: ");
+                        path = scanner.nextLine(); // Get the file path from the user
+                        path = scanner.nextLine();
+                        // path = "C:/Users/liamk/OneDrive/Documents/GitHub/IT355/BigProject.java";
+
+                        System.out.println("Enter content to write to the file:");
+                        String content = scanner.nextLine(); // Get the content to write
+
+                        try {
+                            createFileSafely(path, content); // Call the method to create and write to the file
+                        } catch (IOException e) {
+                            System.err.println("Error while creating or writing to the file: " + e.getMessage());
+                        }
+                        break;
                 case 81:
                     requstVisit(scanner);
                     break;
@@ -920,26 +949,22 @@ static class patientFiles implements Serializable{
     }
 
     //Write a outputfile
+    //Implements Rule SEC rule family and rec FIO50
     private static void createFileSafely(String filePath, String content) throws IOException {
         File file = new File(filePath);
         
         // Check if the file already made
         if (file.exists()) {
+            logger.warning("File already exists: " + file.getAbsolutePath());
             System.out.println("File already created: " + file.getAbsolutePath());
+            return;
         } else {
-            boolean fileCreated = file.createNewFile(); //Check to see if file was created
-            
             try {
                 Files.write(Paths.get(filePath), content.getBytes());
-                System.out.println("File written successfully to " + filePath);
+                logger.info("File written successfully to " + filePath);
+                System.out.println("File created successfully: " + file.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            //Output statis of the created file
-            if (fileCreated) {
-                System.out.println("File created successfully: " + file.getAbsolutePath());
-            } else {
-                throw new IOException("Failed to create the file at: " + file.getAbsolutePath());
             }
         }
     }
