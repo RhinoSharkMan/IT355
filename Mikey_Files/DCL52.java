@@ -1,4 +1,4 @@
-package Mikey_Trevor_Files;
+package Mikey_Files;
 public class DCL52 {
     public static void main (String[] args){
         //All variables are declared in seperate lines

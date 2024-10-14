@@ -1,4 +1,4 @@
-package Mikey_Trevor_Files;
+package Mikey_Files;
 /**
  * The OBJ05 class represents an object with a name and a list of private elements.
  * The class ensures encapsulation by preventing external modification of internal state.

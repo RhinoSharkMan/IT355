@@ -1,4 +1,4 @@
-package Mikey_Trevor_Files;
+package Mikey_Files;
 public class OBJ09 {
     /**
      * Main method demonstrates how to compare the classes of two objects 

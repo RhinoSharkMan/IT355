@@ -1,4 +1,4 @@
-package Mikey_Trevor_Files;
+package Mikey_Files;
 /**
  * This class demonstrates how to ensure that a resource passed to a constructor is not null.
  * The class is final, and the resource is a final field initialized through the constructor.

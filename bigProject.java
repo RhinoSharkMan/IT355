@@ -1,35 +1,33 @@
- /**
+/**
  * IT 355 - Group Project 1
- *
+ * 
  */
-import java.awt.SystemTray;
-import java.awt.im.InputContext;
-import java.nio.CharBuffer;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
-import java.util.*;
-import java.io.*;
 
+
+// import java.awt.SystemTray;
+// import java.awt.im.InputContext;
+import java.io.*;
+import java.nio.CharBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.*;
+import java.util.*;
+// import java.lang.classfile.instruction.ThrowInstruction;
 
 //CLASS: Medication
 class Medication {
     // marked private so that internal state of medList is only modified as intended - OBJ01-J
     private String[] medList;
 
-
     public Medication(String[] medList){
         this.medList = medList;
     }
 
-
     public void displayMeds(){
-
 
     }
     /**
-     *
+     * 
      * @return clone of medList
      */
     public String[] getMedList(){
@@ -43,232 +41,219 @@ class Medication {
     }
 }//END: medication
 
-
-
-
 /*
 * CLASS: HospitalEmployee
 * Satisfies OBJ51-J by minimization accessbility of classes and its members, only accessible to package.
 */
 class HospitalEmployee{
-     private int HID;
-     private String lastName;
-     private double payRate;
-     private String profession;
-     private int securityLevel;
-     private int floorLevel;
+    private int HID;
+    private String lastName;
+    private double payRate;
+    private String profession;
+    private int securityLevel;
+    private int floorLevel;
 
 
-     private static int numDoctors = 0;
-   
-     /*
-      * Constructor to set object's variable values.
-     */
-     HospitalEmployee(int HID, String name, double payRate, String profession)
-     {
-         this.HID = HID;
-         this.lastName = name;
-         this.payRate = payRate;
-         this.profession = profession;
- 
-         securityLevel = initialSecurityLevel(profession);
- 
-         floorLevel = designateFloor();
+    private static int numDoctors = 0;
+  
+    /*
+     * Constructor to set object's variable values.
+    */
+    HospitalEmployee(int HID, String name, double payRate, String profession)
+    {
+        this.HID = HID;
+        this.lastName = name;
+        this.payRate = payRate;
+        this.profession = profession;
+
+        securityLevel = initialSecurityLevel(profession);
+
+        floorLevel = designateFloor();
 
 
-         if (this.profession.equals("Doctor"))
-         {
-            numDoctors++;
-         }
-       
-      }
- 
-     /*
-     * Determines security clearance employee will have in hospital depending on their profession.
-     * Satisfied MET05-J, constructor calls this method which is final so it is not overridable.
-     */
-     protected final int initialSecurityLevel(String jobTitle)
-     {
-         if (jobTitle.equals("CEO") || jobTitle.equals( "Executive"))
-         {
-             return 5;
-         }
- 
-         else if (jobTitle.equals( "Security"))
-         {
-             return 4;
-         }
-         
-         else if (jobTitle.equals("Doctor") || jobTitle.equals( "Surgeon"))
-         {
-             return 3;
-         }    
- 
-         else if (jobTitle.equals( "Nurse"))
-         {
-             return 2;
-         }
- 
-         else if (jobTitle.equals( "Janitor") || jobTitle.equals("Maintenance") || jobTitle.equals( "Electrician"))
-         {
-             return 1;
-         }
- 
-         else
-         {
-             return 0;
-         }
-     }
-     
-     /*Designates floor that the hospital employee will work on.
-      * @return random int from 1-50, indicating the hospital's floors.
-     */
-     protected final int designateFloor()
-     {
-         Random randNum = new Random();
-         int floorNum = randNum.nextInt(50) + 1;
-         return floorNum;
+        if (this.profession.equals("Doctor"))
+        {
+           numDoctors++;
+        }
+      
      }
 
-
     /*
-     * Prints Hospital Employee information
+    * Determines security clearance employee will have in hospital depending on their profession.
+    * Satisfied MET05-J, constructor calls this method which is final so it is not overridable.
     */
-    protected void getEmployeeInfo()
+    protected final int initialSecurityLevel(String jobTitle)
     {
-        System.out.println("\nEmployee sucessfully created: ");
-        System.out.println(profession + " assigned floor: " + floorLevel);
-        System.out.println("Designated hospital security level: " + securityLevel);
+        if (jobTitle.equals("CEO") || jobTitle.equals( "Executive"))
+        {
+            return 5;
+        }
+
+        else if (jobTitle.equals( "Security"))
+        {
+            return 4;
+        }
+        
+        else if (jobTitle.equals("Doctor") || jobTitle.equals( "Surgeon"))
+        {
+            return 3;
+        }    
+
+        else if (jobTitle.equals( "Nurse"))
+        {
+            return 2;
+        }
+
+        else if (jobTitle.equals( "Janitor") || jobTitle.equals("Maintenance") || jobTitle.equals( "Electrician"))
+        {
+            return 1;
+        }
+
+        else
+        {
+            return 0;
+        }
     }
-
-
-    /*
-     * Returns the security level of this HosptialEmployee object
-     * @return value of securityLevel variable for this object.
+    
+    /*Designates floor that the hospital employee will work on.
+     * @return random int from 1-50, indicating the hospital's floors.
     */
-    protected final int getSecurityLevel()
+    protected final int designateFloor()
     {
-        return this.securityLevel;
+        Random randNum = new Random();
+        int floorNum = randNum.nextInt(50) + 1;
+        return floorNum;
     }
 
 
-    /*
-    * Returns the number of doctors that are stored in the same hospital system as this employee object.
-    * @return value of numDoctors variable.
-    */
-    protected final int getNumDoctors()
-    {
-        return this.numDoctors;  
-    }
+   /*
+    * Prints Hospital Employee information
+   */
+   protected void getEmployeeInfo()
+   {
+       System.out.println("\nEmployee sucessfully created: ");
+       System.out.println(profession + " assigned floor: " + floorLevel);
+       System.out.println("Designated hospital security level: " + securityLevel);
+   }
 
 
-    /*
-     * Returns the stored name of this employee
-     * @return value of object's name variable.
-    */
-    protected final String getName()
-    {
-        return this.lastName;
-    }
+   /*
+    * Returns the security level of this HosptialEmployee object
+    * @return value of securityLevel variable for this object.
+   */
+   protected final int getSecurityLevel()
+   {
+       return this.securityLevel;
+   }
 
 
-    /*
-     * Returns the stored profession of this employee
-     * @return value stored in profession variable
-    */
-    protected final String getProfession()
-    {
-        return this.profession;
-    }
+   /*
+   * Returns the number of doctors that are stored in the same hospital system as this employee object.
+   * @return value of numDoctors variable.
+   */
+   protected final int getNumDoctors()
+   {
+       return this.numDoctors;  
+   }
 
 
-    /*
-     * to String
-     *
-    */
-    public String toString(){
-        return this.lastName + " the " + this.profession;
-    }
- }
+   /*
+    * Returns the stored name of this employee
+    * @return value of object's name variable.
+   */
+   protected final String getName()
+   {
+       return this.lastName;
+   }
 
 
- /*
+   /*
+    * Returns the stored profession of this employee
+    * @return value stored in profession variable
+   */
+   protected final String getProfession()
+   {
+       return this.profession;
+   }
+
+
+   /*
+    * to String
+    *
+   */
+   public String toString(){
+       return this.lastName + " the " + this.profession;
+   }
+}
+
+
+/*
 * CLASS: HospitalJanitor
 * Subclass of HospitalEmployee, specifically for Janitor profession.
- */
- class HospitalJanitor extends HospitalEmployee
- {
-     int lowestFloorNum;
-     int highestFloorNum;
+*/
+class HospitalJanitor extends HospitalEmployee
+{
+    int lowestFloorNum;
+    int highestFloorNum;
 
 
-     /*
-      * Constructor to set object's variable values as well as Janitor specific values.
-     */
-     HospitalJanitor(int HID, String name, double payRate, String profession)
-     {
-         super(HID, name, payRate, profession);
-         
-         lowestFloorNum = designateJanitorFloor();
-         highestFloorNum = 5 + lowestFloorNum;
-     }
-
-
-    /* Assigns lowest floor janitor is responsible for cleaning.
-     * Satisfies MET04-J, necessary override of superclass method. Keeps
-     * method secure by not increasing visbility of method.
-     * @return random int that is a multiple of 5.
+    /*
+     * Constructor to set object's variable values as well as Janitor specific values.
     */
-     protected final int designateJanitorFloor()
-     {
-         Random randNum = new Random();
-        //lowest floor num is multiple of 5 from 1 - 45, highest will be that + 5;
-         int floorNum = randNum.nextInt((9) + 1) * 5;
-         return floorNum;
-     }
- 
-    /* Prints out Janitor specific information
-     * Satisfies MET04-J, necessary override of superclass method. Keeps
-     * method secure by not increasing visbility of method.
-     * Declared final to satisfy MET05-J.
-    */
-    @Override
-    protected void getEmployeeInfo()
+    HospitalJanitor(int HID, String name, double payRate, String profession)
     {
-        System.out.println("\nJanitor succesfully created: ");
-        System.out.println("Assigned floors " + lowestFloorNum + " to " + highestFloorNum);
+        super(HID, name, payRate, profession);
+        
+        lowestFloorNum = designateJanitorFloor();
+        highestFloorNum = 5 + lowestFloorNum;
     }
- }
 
 
+   /* Assigns lowest floor janitor is responsible for cleaning.
+    * Satisfies MET04-J, necessary override of superclass method. Keeps
+    * method secure by not increasing visbility of method.
+    * @return random int that is a multiple of 5.
+   */
+    protected final int designateJanitorFloor()
+    {
+        Random randNum = new Random();
+       //lowest floor num is multiple of 5 from 1 - 45, highest will be that + 5;
+        int floorNum = randNum.nextInt((9) + 1) * 5;
+        return floorNum;
+    }
+
+   /* Prints out Janitor specific information
+    * Satisfies MET04-J, necessary override of superclass method. Keeps
+    * method secure by not increasing visbility of method.
+    * Declared final to satisfy MET05-J.
+   */
+   @Override
+   protected void getEmployeeInfo()
+   {
+       System.out.println("\nJanitor succesfully created: ");
+       System.out.println("Assigned floors " + lowestFloorNum + " to " + highestFloorNum);
+   }
+}
+//CLASS: Medication
+public class bigProject {
+
+//Medication Variables
+static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
 
 
- //CLASS: BigProject
-class BigProject {
-
-
-    //Class Variables
-    static final String filePath = "/this PC/Local Disk (C:)/exp/example.txt"; //change to make it in the main for file path allow people to put own file path inside to change it.
-
-
-
-
-    //CLASS: patientFile
-    static class patientFiles implements Serializable{
-        //marked transiant to prevent others from manipulating the file's path
-        transient File patientFile;
-        //created an innerclass with acordance to SER05
-        class files{
-        public void patientfiles(File protectedFile) throws FileNotFoundException{
-            //File is not serialized with rest class
-            //File is not exposed to attackes
-            patientFile = new File("/this PC/local Disk (C:)/patient.txt");
-            }
+//CLASS: patientFile
+static class patientFiles implements Serializable{
+    //marked transiant to prevent others from manipulating the file's path
+    transient File patientFile;
+    //created an innerclass with acordance to SER05
+    class files{
+     public void patientfiles(File protectedFile) throws FileNotFoundException{
+        //File is not serialized with rest class 
+        //File is not exposed to attackes
+        patientFile = new File("/this PC/local Disk (C:)/patient.txt");
         }
-    }//END: patientFile
-    private static SystemTray employeeList;
-
-
+    }
+}//END: patientFile
 
 
     /**
@@ -375,7 +360,7 @@ class BigProject {
                     // Add logic for option 23
                     System.out.println("You selected OPTION 23: Create a Class");
                     //creates a trusted class
-                    Class<BigProject> trustedClass = null;
+                    Class<bigProject> trustedClass = null;
                     create(trustedClass);
                     System.out.println("You created a new trusted class.");
                     break;
@@ -557,54 +542,78 @@ class BigProject {
                     leakPrivateData(scanner, employeeList); //FIO04
                     break;
                 case 87:
+                    isValidHospitalFile(scanner);
                 break;
-
-
-
-
-               
-   
                 default:
-                    System.out.println("Invalid option. Please try again.\n");
+                    System.out.println("Invalid option. Please try again.\n\n");
             }
         }
         scanner.close();
     }
 
-
-    /*
-    * ALL OTHER METHODS
-    */
-
-
-     /**
-    * Validates the that the input from main is an int
-    * @param scanner the Scanner object used to read user input.
-    */
-    public static void returnToMain(Scanner scanner){
-        System.out.print("Press any enter to return to the main menu...");
-        scanner.nextLine();
-        System.out.println("");
-    }
-
+/*
+ * ALL OTHER METHODS
+ */
 
     /**
-    * Validates the that the input is an int value
+    * Validates the that the input from main is an int
     * @param input the initial integer value to validate.
     * @param scanner the Scanner object used to read user input.
     * @return the validated integer value from the user input.
     */
-    public static int validateInput(int input, Scanner scanner){
+    public static int validateInput(int input, Scanner scanner)
+    {
         if (scanner.hasNextInt() == true) {
             input = scanner.nextInt();
-            }
+            } 
         else {
-            scanner.next();//clear the invalid input
+            scanner.next(); //clear the invalid input
             }
-        scanner.nextLine();
         return input;
     }
 
+    /**
+    * Buffer 
+    * @param scanner the Scanner object used to read user input.
+    */
+    public static void returnToMain(Scanner scanner)
+    {
+        System.out.print("Press 'any key + enter' to return to the main menu...");
+        scanner.next();
+        System.out.println(""); // Print a blank line for spacing
+    }
+
+    /**
+    * Validates that a given file path is resides within the allowed hospital directory
+    * @param filePath The file path to validate.
+    * @param scanner the Scanner object used to read user input.
+    * @return true if valid, false if invalid
+    */
+    public static boolean isValidHospitalFile(Scanner scanner) {
+        boolean flag = false;
+        System.out.print("Enter File: ");
+        String filePath = scanner.nextLine();
+        try {
+            // Define the allowed base directory for hospital files
+            File baseDir = new File("/hospital/data");
+            File fileName = new File(filePath);
+            //Canonicalize the file path
+            String canonicalPath = fileName.getCanonicalPath();
+            String baseCanonicalPath = baseDir.getCanonicalPath();
+            // Validate that the canonical path starts with the base directory path
+            if (canonicalPath.startsWith(baseCanonicalPath)) {
+                System.out.println("Valid hospital file path");
+                flag = true;
+            } else {
+                System.out.println("Invalid hospital file path.");
+                flag = true;
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        returnToMain(scanner);
+        return flag;
+    }
 
     /**
     * determines if the hospital can order pizza
@@ -622,10 +631,10 @@ class BigProject {
             {
                 flag = false;
             }
-        }
+        } 
         catch (Exception e) {
             System.out.println("List is Empty");
-        }
+        } 
         finally {
             System.out.println("Calculation Over.");
             if(flag == true)
@@ -639,29 +648,28 @@ class BigProject {
         }
         return flag;
     }
-   
+    
     /**
-    * deletes a text file
+    * deletes a text file 
     * @param scanner the Scanner object used to read user input.
     */
     public static void deleteTrash(Scanner scanner){
         File file = new File("Trash");
         if (file.delete() == false) {
-            //Deletion of file failed. Handle the error
+            //Deletion of file failed. Handle the error 
             System.err.println("Failed to remove trash (ew): " + file.getAbsolutePath());
             returnToMain(scanner);
-        }
+        } 
         else {
             System.out.println("Trash has been removed :)");
             returnToMain(scanner);
         }
     }
 
-
     /**
-    * deletes a text file
+    * deletes a text file 
     * @param scanner the Scanner object used to read user input.
-     * @throws IOException
+     * @throws IOException 
     */
     public static void leakPrivateData(Scanner scanner, ArrayList<HospitalEmployee> list) throws IOException {
         System.out.print("Enter the filename to save the employee data: ");
@@ -676,7 +684,7 @@ class BigProject {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file: " + e.getMessage()); //ERR53-J - Try to Gracefully Recover From System Errors
-        }
+        } 
         finally
         {
             writer.close(); //MAKE SURE RESOURCES ARE CLOSED
@@ -684,101 +692,92 @@ class BigProject {
         }
     }
 
-
     /**
-    * displays when a user wants to request a vistiation
+    * displays when a user wants to request a vistiation 
     * @param scanner the Scanner object used to read user input.
     */
     public static void requstVisit(Scanner scanner){
         System.out.println("You selected OPTION 81.");
-        System.out.print("Please enter patient's room number to request visitation: ");
+        System.out.print("Please enter patient's room number to request visitation: "); 
         int roomNum = 0;
        //checks if user input is valid
         roomNum = validateInput(roomNum, scanner);
        //if checks if room number is in valid hospital range (101-5099)
         if (checkRoomNumber(roomNum))
         {
-            System.out.println("Valid room number entered, request has been created");
+            System.out.println("Valid room number entered, request has been created"); 
         }
         else
         {
-            System.out.println("Room number incorrect, please contact patient's medical staff to find correct room");
+            System.out.println("Room number incorrect, please contact patient's medical staff to find correct room"); 
         }
         //return
         returnToMain(scanner);
     }
 
-
     /*
-    * Utilizing MET00-J by validating the method's arguments.
-    * Also satisfies MET01-J by not using assertions to validate the argument.
+    * Utilizing MET00-J by validating the method's arguments. 
+    * Also satisfies MET01-J by not using assertions to validate the argument. 
     * Hospital has 50 floors, room number has to 101 - 5099
     * @param room integer describing hospital's room number
-    * @return true if room is in correct range, false otherwise.
+    * @return true if room is in correct range, false otherwise. 
     */
     public static boolean checkRoomNumber(int room)
         {
             //validating arguments
             if (room >= 101 && room <= 5099)
             {
-                return true;
+                return true; 
             }
-   
+    
             else
             {
-            return false;
+            return false; 
             }
         }
 
 
-
-
     private static double checkAvgPatients(HospitalEmployee emp, int totalPatientNum)
     {
-        int hospitalDoctors = emp.getNumDoctors();
-
+        int hospitalDoctors = emp.getNumDoctors(); 
 
         //Satisfies MET01-J, validating method arguments without using assertions
         if (emp.getSecurityLevel() == 0)
         {
-            System.out.println("Employee entered is not valid");
+            System.out.println("Employee entered is not valid"); 
             return -1;
         }
         //Satisfies MET01-J, validating method arguments without using assertions
         if (!(totalPatientNum > 0))
         {
-            System.out.println("Invalid number of patients entered");
+            System.out.println("Invalid number of patients entered"); 
             return -1;
         }
-        //Satisfies NUM02-J, ensuring that resulting division does not result in divide by zero error.
+        //Satisfies NUM02-J, ensuring that resulting division does not result in divide by zero error. 
         if (hospitalDoctors == 0)
         {
             System.out.println("No doctors currently stored");
             System.out.println("Cannot compute to avoid dividing by zero");
-            return -1;
+            return -1; 
         }
 
-
-        return totalPatientNum / hospitalDoctors;
+        return totalPatientNum / hospitalDoctors; 
     }
-
 
     //References getCharBufferedCopy
     public static CharBuffer getRefereneCharBuffer(char importantArray[]) {
-        BigProject getReferenceChar = new BigProject();
+        bigProject getReferenceChar = new bigProject();
         return getReferenceChar.getCharBufferedCopy(importantArray);
     }
 
-
-    //FOI05 -Arrays get put into charbuffered copys
+    //FOI05
+    //Arrays get put into charbuffered copys 
     public CharBuffer getCharBufferedCopy(char importantArray[]) {
         return CharBuffer.wrap(importantArray).asReadOnlyBuffer();
     }
 
 
-
-
-//FIO08
+    //FIO08 
     //Properly read char from something
     public static char[]  makeCharbuffer(FileInputStream in, char informationData) {
          // Initialize Stream
@@ -796,23 +795,21 @@ class BigProject {
             return charArray;
         }
 
-
     //call functions for the write of an object
-    private static void getWrite(final ObjectOutputStream writeOBJ)
+    private static void getWrite(final ObjectOutputStream writeOBJ) 
     throws IOException {
-        BigProject writeObj = new BigProject();
-        writeObj.writeObjectexp(writeOBJ);
+        bigProject writeObj = new bigProject();
+        writeObj.writeObjectexp(writeOBJ); 
     }
-
 
     //call functions for the read of an object
-    private static void getRead(final ObjectInputStream readOBJ)
+    private static void getRead(final ObjectInputStream readOBJ) 
     throws IOException, ClassNotFoundException {
-        BigProject readObj = new BigProject();
-        readObj.readObjectexp(readOBJ);
+        bigProject readObj = new bigProject();
+        readObj.readObjectexp(readOBJ); 
     }
-   
-//SER01 for write and read
+    
+    //SER01 for write and read
     //Allows saftly writing into an object
     private void writeObjectexp(final ObjectOutputStream writeExample)
     throws IOException {
@@ -825,8 +822,6 @@ class BigProject {
     }
 
 
-
-
     //SEC01 Sanatizes the path to a file
     private static void sanatizePath(final String path) throws FileNotFoundException, IOException {
         //Proper way to sanatize a path file
@@ -836,8 +831,9 @@ class BigProject {
             cleanFileName = path;
             cleanedFileCount = cleanedFileCount+1;
             cleanedFiles[cleanedFileCount] = path;
-       
+        
         try {
+            @SuppressWarnings({ "unchecked", "removal" })
             FileInputStream editFile =
                 (FileInputStream) AccessController.doPrivileged(
                     new PrivilegedExceptionAction() {
@@ -845,7 +841,7 @@ class BigProject {
                         public FileInputStream run() throws FileNotFoundException{
                          return new FileInputStream(cleanFileName);
                         }
-                    }  
+                    }   
                 );
                 // add something extra to do with file
             editFile.close();
@@ -855,8 +851,6 @@ class BigProject {
         Runtime.getRuntime().exit(1);
         //this makes it complient to FOI14
     }
-
-
 
 
      //SEC00
@@ -869,8 +863,8 @@ class BigProject {
        
     //test to see if there is text in file
     }
-   
     //SEC00 p2
+    @SuppressWarnings("removal")
     private static FileInputStream OpenTxtFile(String path) {
         final String txt_file = path;
         final FileInputStream exp[] = { null };
@@ -888,20 +882,17 @@ class BigProject {
         return exp[0];
     }
 
-
     //Puts a lock on the patient file
     public static void patientfileLock() throws IOException, ClassNotFoundException{
         patientFiles myObj = new patientFiles();
         lockrefernce((ObjectInput) myObj);
     }
 
-
     //allows the communication of lockObject
     public static void lockrefernce(ObjectInput in) throws IOException, ClassNotFoundException {
-        BigProject lockObj = new BigProject();
+        bigProject lockObj = new bigProject();
         lockObj.lockObject(in);
     }
-
 
     //Creates a 'lock' to sencronize classes that may have untrusted code
     private final Object lock = new Object();
@@ -920,7 +911,6 @@ class BigProject {
                 this.exampleInt = in.readInt();
                 initialized = true;
 
-
             }else {
                 throw new IllegalStateException();
              }
@@ -929,20 +919,39 @@ class BigProject {
         //makes code complient to FOI14    
     }
 
+    //Write a outputfile
+    private static void createFileSafely(String filePath, String content) throws IOException {
+        File file = new File(filePath);
+        
+        // Check if the file already made
+        if (file.exists()) {
+            System.out.println("File already created: " + file.getAbsolutePath());
+        } else {
+            boolean fileCreated = file.createNewFile(); //Check to see if file was created
+            
+            try {
+                Files.write(Paths.get(filePath), content.getBytes());
+                System.out.println("File written successfully to " + filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //Output statis of the created file
+            if (fileCreated) {
+                System.out.println("File created successfully: " + file.getAbsolutePath());
+            } else {
+                throw new IOException("Failed to create the file at: " + file.getAbsolutePath());
+            }
+        }
+    }
 
     //SEC05
     //Create a trusted class
-    public BigProject() {}
-    public static <Sec> Sec create(Class<Sec> trustedClass)
+    public bigProject() {}
+   public static <Sec> Sec create(Class<Sec> trustedClass)
            throws InstantiationException, IllegalAccessException {
                //Creates a trusted class
                return trustedClass.newInstance();
            }
 
 
-
-
-} //END BigProject
-
-
-
+} //END bigProject

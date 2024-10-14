@@ -1,4 +1,4 @@
-package Mikey_Trevor_Files;
+package Mikey_Files;
 /**
  * The OBJ01 class represents an individual with a name
  */
