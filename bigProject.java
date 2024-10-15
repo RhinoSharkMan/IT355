@@ -664,9 +664,8 @@ static class patientFiles implements Serializable{
             int target = scanner.nextInt();
             System.out.println("Wow! " + target + " is " + list.get(target).toString() + " favorite number");
             
-        } catch (Exception x) { //ERR53-J - Try to Gracefully Recover From System Errors |  ERR50-J - Use Exceptions Only for Exceptional Conditions
+        } catch (Exception x) { //ERR53-J - Try to Gracefully Recover From System Errors |  ERR50-J - Use Exceptions Only for Exceptional Conditions (could add)
             System.out.println("You picked a bad number. No Employee exists at that index in the arrry.");
-            throw new NullPointerException();
         }
         finally{ //do not abruptly return within the finally block
             System.out.println("Never Search like that again :)");
