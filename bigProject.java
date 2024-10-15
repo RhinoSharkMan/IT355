@@ -659,7 +659,6 @@ static class patientFiles implements Serializable{
     * @param list the list of employees
     */
     public static void stupidSearch(Scanner scanner, ArrayList<HospitalEmployee> list) throws Exception{
-        list.get(100).toString();
         try {
             System.out.print("Enter your favorite number: ");
             int target = scanner.nextInt();
